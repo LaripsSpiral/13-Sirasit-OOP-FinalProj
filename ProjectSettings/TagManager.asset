@@ -15,7 +15,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Fish
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: UnderWater
     uniqueID: 2275063959
+    locked: 0
+  - name: Fish
+    uniqueID: 4185370353
     locked: 0
   - name: Sky
     uniqueID: 2080328695
