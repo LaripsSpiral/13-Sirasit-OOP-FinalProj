@@ -28,15 +28,13 @@ public class FishEnvironment : MonoBehaviour
         SpawnFish(_fishStartOffScreenAmount);
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
         Fish fish;
-
         if (fish = col.transform.GetComponent<Fish>())
         {
             fish.Flip();
         }
-
     }
 
     /// <summary>

@@ -15,16 +15,17 @@ public class Fish : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Swim();
+        SwimForward();
     }
 
-    void Swim()
+    private void SwimForward()
     {
-        _rb2d.AddForce(transform.right * Speed * Time.fixedDeltaTime);
+        _rb2d.AddForce(Speed * Time.fixedDeltaTime * transform.right);
     }
 
     public void Flip(int xDir = 90)
     {
         transform.Rotate(0, xDir == 90 ? 180 : xDir, 0);
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 }
