@@ -14,11 +14,11 @@ public class PlayerController : Character
     private void Update()
     {
         moveDir = GetMoveDir();
-        RotateAlongVelocity(moveDir);
     }
 
-    private void FixedUpdate()
+    override protected void FixedUpdate()
     {
+        base.FixedUpdate();
         Move(moveDir);
     }
 

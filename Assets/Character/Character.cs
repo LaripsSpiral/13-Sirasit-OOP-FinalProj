@@ -23,7 +23,8 @@ public class Character : MonoBehaviour
     {
         Rb2d = GetComponent<Rigidbody2D>();
     }
-    private void FixedUpdate()
+
+    virtual protected void FixedUpdate()
     {
         RotateAlongVelocity();
     }
