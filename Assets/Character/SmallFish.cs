@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SmallFish : Character
 {
-    private void FixedUpdate()
+    private void Start()
     {
-        Move(transform.right);
+        moveDir = Random.Range(0, 2) == 0 ? Vector2.left : Vector2.right;
+        Move(moveDir, ForceMode2D.Impulse, 10);
     }
 }

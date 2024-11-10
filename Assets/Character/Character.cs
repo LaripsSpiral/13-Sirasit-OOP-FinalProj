@@ -1,32 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Character : MonoBehaviour
 {
+
     public float Speed = 10;
-    protected Rigidbody2D rb2d;
+
+    [SerializeField] protected Vector2 moveDir;
+
+    private Rigidbody2D _rb2d;
+    public Rigidbody2D Rb2d
+    {
+        get => _rb2d;
+        private set => _rb2d = value;
+    }
+
 
     virtual protected void Awake()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        Rb2d = GetComponent<Rigidbody2D>();
+    }
+    private void FixedUpdate()
+    {
+        RotateAlongVelocity();
     }
 
-    virtual public void Move(Vector2 moveDir)
+    virtual public void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
     {
-        rb2d.AddForce(Speed * Time.fixedDeltaTime * moveDir);
+        Rb2d.AddForce(Speed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
     }
 
-    public void Flip(int xScale = 0)
+    void RotateAlongVelocity()
     {
-        Vector3 flipScale = transform.localScale;
+        //Get Rotate Angle
+        Vector2 dir = Rb2d.velocity;
+        float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        if (xScale == 0)
-            flipScale.x *= -1;
-        else
-            flipScale.x = xScale;
+        //Flip Rotate Angle
+        rotAngle -= dir.x < 0 ? -180 : 0;
 
-        transform.localScale = flipScale;
+        transform.rotation = Quaternion.AngleAxis(rotAngle, Vector3.forward);
+
+        //Flip Character
+        if (dir.x != 0)
+        {
+            Vector3 flipScale = transform.localScale;
+            flipScale.x = dir.x < 0 ? -1 : 1;
+
+            transform.localScale = flipScale;
+        }
     }
 }

@@ -5,9 +5,11 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : Character
 {
-    [SerializeField] Vector2 moveDir;
 
-    [SerializeField] float rotationSpeed = 5;
+    private void Start()
+    {
+        Move(Vector2.right, ForceMode2D.Impulse, .5f);
+    }
 
     private void Update()
     {
@@ -34,7 +36,7 @@ public class PlayerController : Character
         if (moveDir != Vector2.zero)
         {
             //Get Rotate Angle
-            Vector2 dir = rb2d.velocity;
+            Vector2 dir = Rb2d.velocity;
             float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
             //Flip Rotate Angle
@@ -45,7 +47,10 @@ public class PlayerController : Character
             //Flip Character
             if (dir.x != 0)
             {
-                Flip(dir.x < 0 ? -1 : 1);
+                Vector3 flipScale = transform.localScale;
+                flipScale.x = dir.x < 0 ? -1 : 1;
+
+                transform.localScale = flipScale;
             }
         }
     }

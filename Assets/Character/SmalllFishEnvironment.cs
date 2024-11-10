@@ -30,11 +30,10 @@ public class SmalllFishEnvironment : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        SmallFish fish;
-        if (fish = col.transform.GetComponent<SmallFish>())
+        SmallFish smallFish;
+        if (smallFish = col.transform.GetComponent<SmallFish>())
         {
-            fish.Flip();
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            ReflexCollision(smallFish);
         }
     }
 
@@ -84,12 +83,13 @@ public class SmalllFishEnvironment : MonoBehaviour
 
         fish.transform.position = spawnPos;
 
-        //Flip Odd
-        if (index % 2 == 0)
-            fish.Flip();
-
         //Scaling
         fish.transform.localScale *= Random.Range(_sizeMinScale, _sizeMaxScale);
         fish.Speed *= Random.Range(_speedMinScale, _speedMaxScale);
+    }
+
+    void ReflexCollision(SmallFish smallFish)
+    {
+        smallFish.Move(smallFish.Rb2d.velocity * -2, ForceMode2D.Impulse, 13);
     }
 }
