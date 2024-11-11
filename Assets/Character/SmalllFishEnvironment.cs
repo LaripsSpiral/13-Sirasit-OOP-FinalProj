@@ -28,12 +28,15 @@ public class SmalllFishEnvironment : MonoBehaviour
         SpawnFish(_fishStartOffScreenAmount);
     }
 
-    private void OnTriggerExit2D(Collider2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
         SmallFish smallFish;
         if (smallFish = col.transform.GetComponent<SmallFish>())
         {
-            ReflexCollision(smallFish);
+            float speed = smallFish.LastVelocity.magnitude;
+            Vector2 dir = Vector2.Reflect(smallFish.LastVelocity.normalized, col.contacts[0].normal);
+
+            smallFish.Rb2d.velocity = dir * Mathf.Max(speed, 0f);
         }
     }
 
@@ -88,8 +91,4 @@ public class SmalllFishEnvironment : MonoBehaviour
         fish.Speed *= Random.Range(_speedMinScale, _speedMaxScale);
     }
 
-    void ReflexCollision(SmallFish smallFish)
-    {
-        smallFish.Move(smallFish.Rb2d.velocity * -2, ForceMode2D.Impulse, 13);
-    }
 }
