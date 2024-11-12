@@ -23,13 +23,14 @@ public class Character : MonoBehaviour
     {
         Rb2d = GetComponent<Rigidbody2D>();
     }
-
+     
     virtual protected void FixedUpdate()
     {
         RotateAlongVelocity();
     }
 
-    virtual public void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
+
+    protected void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
     {
         Rb2d.AddForce(Speed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
     }

@@ -744,6 +744,17 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &524988601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3192051557443352847, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+  m_PrefabInstance: {fileID: 8585054743163661854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &602624099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1658,6 +1669,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1591037027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7555976766861778711, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+  m_PrefabInstance: {fileID: 8585054743163661854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1608608695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2017063488845407361, guid: cbc260cbc44e1c046bd76c3944ae5daf, type: 3}
@@ -1906,6 +1928,7 @@ GameObject:
   - component: {fileID: 2024480170}
   - component: {fileID: 2024480169}
   - component: {fileID: 2024480171}
+  - component: {fileID: 2024480172}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -2201,6 +2224,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 50
   moveDir: {x: 0, y: 0}
+--- !u!114 &2024480172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024480166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8daa28eda3df2c943a66ec90468b2865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _foodProgSlider: {fileID: 1591037027}
+  _foodProgValueTxt: {fileID: 524988601}
+  _foodMaxValue: 100
+  _foodValue: 0
 --- !u!4 &2076716813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2413119769985308625, guid: 65afbf2d51000254cb8e33c02c5caeec, type: 3}
@@ -2857,6 +2896,22 @@ PrefabInstance:
     - target: {fileID: 7424492404957982865, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555976766861778711, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555976766861778711, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555976766861778711, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956070450683434297, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
+      propertyPath: m_Name
+      value: ValueTxt
       objectReference: {fileID: 0}
     - target: {fileID: 8456885541435463289, guid: c01f2e6ca5da29744a797d6618c8b8ca, type: 3}
       propertyPath: m_AnchorMax.y
