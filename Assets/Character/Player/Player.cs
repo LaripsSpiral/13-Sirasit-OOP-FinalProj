@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [Header("Health")]
     [SerializeField] private Transform _heartUIParent;
@@ -26,12 +26,66 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        //Set FoodProg
         _foodProgSlider.maxValue = _foodMaxValue;
         UpdateFoodProgressBar();
 
+        //Set Health
         Heart = _totalHeart;
+
+        //Start will not still
+        Move(Vector2.right, ForceMode2D.Impulse, .5f);
     }
 
+    private void Update()
+    {
+        //Movement
+        moveDir = GetMoveDir();
+    }
+
+    override protected void FixedUpdate()
+    {
+        //Movement
+        base.FixedUpdate();
+        Move(moveDir);
+    }
+
+    #region Movement
+    Vector2 GetMoveDir()
+    {
+        Vector2 moveDir;
+        moveDir.x = Input.GetAxis("Horizontal");
+        moveDir.y = Input.GetAxis("Vertical");
+
+        return moveDir;
+    }
+
+    void RotateAlongVelocity(Vector2 moveDir)
+    {
+        if (moveDir != Vector2.zero)
+        {
+            //Get Rotate Angle
+            Vector2 dir = Rb2d.velocity;
+            float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            //Flip Rotate Angle
+            rotAngle -= dir.x < 0 ? -180 : 0;
+
+            transform.rotation = Quaternion.AngleAxis(rotAngle, Vector3.forward);
+
+            //Flip Character
+            if (dir.x != 0)
+            {
+                Vector3 flipScale = transform.localScale;
+                flipScale.x = dir.x < 0 ? -1 : 1;
+
+                transform.localScale = flipScale;
+            }
+        }
+    }
+    #endregion Movement
+
+    #region FoodProg
     public void IncreaseFoodValue(float foodAmount)
     {
         _foodValue += foodAmount;
@@ -46,7 +100,9 @@ public class Player : MonoBehaviour
         _foodProgSlider.value = _foodValue;
         _foodProgValueTxt.text = Mathf.FloorToInt(_foodValue / _foodMaxValue * 100) + "%";
     }
+    #endregion FoodProg
 
+    #region Health
     public void TakeDamage(int damage)
     {
         Heart -= damage;
@@ -74,4 +130,5 @@ public class Player : MonoBehaviour
             Instantiate(_heartPrefab, _heartUIParent);
         }
     }
+    #endregion Health
 }

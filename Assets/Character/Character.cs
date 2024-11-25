@@ -29,7 +29,6 @@ public class Character : MonoBehaviour
         RotateAlongVelocity();
     }
 
-
     protected void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
     {
         Rb2d.AddForce(Speed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);

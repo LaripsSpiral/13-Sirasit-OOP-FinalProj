@@ -5,6 +5,5 @@ using UnityEngine;
 
 public interface IEatable
 {
-    public float FoodAmount { get; }
-    public void EatenBy(Player player, float foodAmount);
+    public void EatenBy(Player player);
 }

@@ -7,7 +7,6 @@ public class SmallFish : Character, IEatable
     public Vector3 LastVelocity;
 
     private float _foodAmount = 2.5f;
-    public float FoodAmount => _foodAmount;
 
     private void Start()
     {
@@ -25,14 +24,14 @@ public class SmallFish : Character, IEatable
         if (!col.gameObject.TryGetComponent(out Player player))
             return;
 
-        EatenBy(player, FoodAmount);
+        EatenBy(player);
     }
 
-    public void EatenBy(Player player, float foodAmount)
+    public void EatenBy(Player player)
     {
         Debug.Log($"{this} eaten by {player}");
 
-        player.IncreaseFoodValue(foodAmount);
+        player.IncreaseFoodValue(_foodAmount);
         Destroy(gameObject);
     }
 }
