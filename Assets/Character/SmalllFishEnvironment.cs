@@ -51,7 +51,7 @@ public class SmalllFishEnvironment : MonoBehaviour
 
         for (int i = 0; i < _fishStartAmount; i++)
         {
-            CreateFish(spawnAreaMin, spawnAreaMax, index: i);
+            CreateFish(spawnAreaMin, spawnAreaMax);
         }
 
     }
@@ -69,12 +69,12 @@ public class SmalllFishEnvironment : MonoBehaviour
             Vector2 spawnAreaMin = new(spawnArea.rect.min.x + spawnArea.position.x, spawnArea.rect.min.y + spawnArea.position.y);
             Vector2 spawnAreaMax = new(spawnArea.rect.max.x + spawnArea.position.x, spawnArea.rect.max.y + spawnArea.position.y);
 
-            CreateFish(spawnAreaMin, spawnAreaMax, index: i);
+            CreateFish(spawnAreaMin, spawnAreaMax);
         }
 
     }
 
-    void CreateFish(Vector2 spawnAreaMin, Vector2 spawnAreaMax, int index = 1)
+    void CreateFish(Vector2 spawnAreaMin, Vector2 spawnAreaMax)
     {
         Character fish = Instantiate(_fishPrefabs[Random.Range(0, _fishPrefabs.Count)]);
         fish.transform.parent = parentGroup;

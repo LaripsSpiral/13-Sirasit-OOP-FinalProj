@@ -6,7 +6,7 @@ public class SmallFish : Character, IEatable
 {
     public Vector3 LastVelocity;
 
-    private float _foodAmount = 2.5f;
+    private readonly float _foodAmount = 2.5f;
 
     private void Start()
     {

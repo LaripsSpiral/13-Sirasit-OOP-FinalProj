@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Player : Character
 {
+    public Transform Mouth;
+
     [Header("Health")]
     [SerializeField] private Transform _heartUIParent;
     [SerializeField] private GameObject _heartPrefab;
@@ -59,30 +61,6 @@ public class Player : Character
 
         return moveDir;
     }
-
-    void RotateAlongVelocity(Vector2 moveDir)
-    {
-        if (moveDir != Vector2.zero)
-        {
-            //Get Rotate Angle
-            Vector2 dir = Rb2d.velocity;
-            float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-            //Flip Rotate Angle
-            rotAngle -= dir.x < 0 ? -180 : 0;
-
-            transform.rotation = Quaternion.AngleAxis(rotAngle, Vector3.forward);
-
-            //Flip Character
-            if (dir.x != 0)
-            {
-                Vector3 flipScale = transform.localScale;
-                flipScale.x = dir.x < 0 ? -1 : 1;
-
-                transform.localScale = flipScale;
-            }
-        }
-    }
     #endregion Movement
 
     #region FoodProg
@@ -114,6 +92,8 @@ public class Player : Character
             return;
 
         Debug.Log($"{this} have no Health left");
+
+        Death();
     }
 
     void UpdateHeartUI()
@@ -129,6 +109,11 @@ public class Player : Character
         {
             Instantiate(_heartPrefab, _heartUIParent);
         }
+    }
+
+    void Death()
+    {
+        this.enabled = false;
     }
     #endregion Health
 }

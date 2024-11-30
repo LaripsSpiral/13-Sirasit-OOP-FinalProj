@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class Enemy_Fish : Character
 {
-
+    protected abstract void PlayerDeath(Player player);
 }
