@@ -20,18 +20,12 @@ public class FishingBait : Enemy_Fish, IEatable
         transform.position += Vector3.down * hookRange;
     }
 
-    protected override void OnCollisionEnter2D(Collision2D col)
+    protected void OnCollisionEnter2D(Collision2D col)
     {
         if(!col.gameObject.TryGetComponent(out Player player))
             return;
 
         EatenBy(player);
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D col)
-    {
-        if (!col.TryGetComponent(out Player player))
-            return;
     }
 
     public void EatenBy(Player player)
@@ -57,7 +51,7 @@ public class FishingBait : Enemy_Fish, IEatable
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + Vector3.down * _minRange, transform.position + Vector3.down * _maxRange);
