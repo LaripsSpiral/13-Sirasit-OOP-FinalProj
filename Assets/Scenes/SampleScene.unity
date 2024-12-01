@@ -1029,54 +1029,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3907707458148233733, guid: da63fd51f578de14099e6e1616022d25, type: 3}
   m_PrefabInstance: {fileID: 8892753527186786247}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &654622025 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6640322672562546097, guid: 71205d8f37780e34e8cbf498146afdb2, type: 3}
-  m_PrefabInstance: {fileID: 7966015861864045303}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &654622028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654622025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d9505e085167fe47b1249cdbf6b30a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 2
-  moveDir: {x: 0, y: 0}
-  fishingBaits: []
-  _target: {fileID: 0}
---- !u!50 &654622029
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654622025}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &692579847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,13 +3020,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6640322672562546097, guid: 71205d8f37780e34e8cbf498146afdb2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 654622029}
-    - targetCorrespondingSourceObject: {fileID: 6640322672562546097, guid: 71205d8f37780e34e8cbf498146afdb2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 654622028}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71205d8f37780e34e8cbf498146afdb2, type: 3}
 --- !u!1001 &8440856192396102792
 PrefabInstance:
