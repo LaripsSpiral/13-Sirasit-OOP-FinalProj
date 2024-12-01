@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using TMPro.Examples;
 using UnityEngine;
 
-public class FishingBait : Enemy_Fish, IEatable
+public class FishingBait : MonoBehaviour, IEatable
 {
+    public FishingBoat OwnedBoat;
+
     [Header("Settings")]
     [SerializeField] float _minRange, _maxRange;
-
 
     Vector3 spawnPos;
     float hookRange;
@@ -24,10 +25,8 @@ public class FishingBait : Enemy_Fish, IEatable
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
-    override protected void FixedUpdate()
+    void FixedUpdate()
     {
-        base.FixedUpdate();
-
         //Hook line
         _lineRenderer.SetPosition(0, spawnPos + Vector3.back);
         _lineRenderer.SetPosition(1, transform.position + Vector3.back);
@@ -48,23 +47,10 @@ public class FishingBait : Enemy_Fish, IEatable
         if (player.Heart > 0)
             return;
 
-        PlayerDeath(player);
-    }
-    protected override void PlayerDeath(Player player)
-    {
-        player.Rb2d.velocity = default;
-        player.Rb2d.isKinematic = true;
-
-        player.Mouth.parent = transform;
-        player.Mouth.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 0));
-
-        player.transform.parent = player.Mouth;
-        player.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 90));
-
-        StartCoroutine(AnimHookup());
+        OwnedBoat.HookUp(this, player);
     }
 
-    IEnumerator AnimHookup()
+    public IEnumerator AnimHookup()
     {
         while (transform.position.y < spawnPos.y)
         {
