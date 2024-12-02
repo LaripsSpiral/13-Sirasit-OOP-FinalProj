@@ -67,6 +67,12 @@ public class FishingBait : Character, IEatable
     }
     public IEnumerator AnimHookup()
     {
+        
+        Rb2d.velocity = default;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().color = new(0, 0, 0, .3f);
+        
+
         while (Vector2.SqrMagnitude(transform.position - _ownerBoat.BaitSpawnPoint.position) > 1)
         {
             Rb2d.MovePosition(Vector3.Lerp(transform.position, _ownerBoat.BaitSpawnPoint.position, Speed * 7 * Time.deltaTime));
