@@ -1,35 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
 
-public class FishingBait : MonoBehaviour, IEatable
+public class FishingBait : Character, IEatable
 {
-    public FishingBoat OwnedBoat;
+    [SerializeField] FishingBoat _ownerBoat;
 
-    [Header("Settings")]
-    [SerializeField] float _minRange, _maxRange;
-
-    Vector3 spawnPos;
-    float hookRange;
+    float _hookRange;
 
     LineRenderer _lineRenderer;
 
-    private void Start()
+    public void Init(FishingBoat ownerBoat, float hookRange) 
     {
-        spawnPos = transform.position;
-
-        hookRange = Random.Range(_minRange, _maxRange);
-        transform.position += Vector3.down * hookRange;
-
-        _lineRenderer = GetComponent<LineRenderer>();
+        _ownerBoat = ownerBoat;
+        _hookRange = hookRange;
     }
 
-    void FixedUpdate()
+    private void Start()
     {
-        //Hook line
-        _lineRenderer.SetPosition(0, spawnPos + Vector3.back);
-        _lineRenderer.SetPosition(1, transform.position + Vector3.back);
+        _lineRenderer = GetComponent<LineRenderer>();
+        transform.position = new Vector3(transform.parent.position.x, - _hookRange, 0);
+    }
+
+    void Update()
+    {
+        UpdateHookLine();
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -38,7 +32,7 @@ public class FishingBait : MonoBehaviour, IEatable
             return;
 
         EatenBy(player);
-    }
+    } 
 
     public void EatenBy(Player player)
     {
@@ -47,24 +41,41 @@ public class FishingBait : MonoBehaviour, IEatable
         if (player.Heart > 0)
             return;
 
-        OwnedBoat.HookUp(this, player);
+        HookUp(player);
+    }
+    void UpdateHookLine()
+    {
+        _lineRenderer.SetPosition(0, _ownerBoat.BaitSpawnPoint.position + Vector3.back);
+        _lineRenderer.SetPosition(1, transform.position);
     }
 
-    public IEnumerator AnimHookup()
+    public void HookUp(Player player = null)
     {
-        while (transform.position.y < spawnPos.y)
+        if (player)
         {
-            transform.position = Vector3.Lerp(transform.position, spawnPos, hookRange * Time.deltaTime * .05f);
+            player.Rb2d.velocity = default;
+            player.Rb2d.isKinematic = true;
 
-            yield return new WaitForEndOfFrame();
+            player.Mouth.parent = transform;
+            player.Mouth.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 0));
+
+            player.transform.parent = player.Mouth;
+            player.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 90));
         }
 
+        StartCoroutine(AnimHookup());
+    }
+    public IEnumerator AnimHookup()
+    {
+        while (Vector2.SqrMagnitude(transform.position - _ownerBoat.BaitSpawnPoint.position) > 1)
+        {
+            Rb2d.MovePosition(Vector3.Lerp(transform.position, _ownerBoat.BaitSpawnPoint.position, Speed * 7 * Time.deltaTime));
+
+            yield return new WaitForSeconds(.025f);
+        }
+
+        Destroy(gameObject);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position + Vector3.down * _minRange, transform.position + Vector3.down * _maxRange);
-    }
 }
 

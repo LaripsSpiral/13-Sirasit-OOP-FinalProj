@@ -1,63 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FishingBoat : Enemy
 {
-    [SerializeField] List<FishingBait> fishingBaits;
+    [SerializeField] FishingBait _fishingBaitPrefab;
 
-    [SerializeField] Player _target;
+    public Transform BaitSpawnPoint;
 
-    public Player Target 
-    {
-        get => _target;
-        private set => _target = value; 
-    }
+    [SerializeField] float _minHookRange , _maxHookRange;
 
+    FishingBait _fishBait;
 
-    void Update()
+    private void Start()
     {
         Behavior();
     }
 
     protected override void Behavior()
     {
-        //Find
-        Target = FindAnyObjectByType<Player>();
-
-        //Not Exist
-        if (_target == null)
-            return;
-
-        //Do
-        MoveTowardPlayer(_target);
+        SpawnHook();
     }
 
-    private void MoveTowardPlayer(Player target)
+    void SpawnHook()
     {
-        Vector2 moveTargetPos = new(target.transform.position.x, transform.position.y);
-        Vector2 lerpTargetPos = Vector2.Lerp(transform.position, moveTargetPos, Speed * Time.deltaTime);
+        if (_fishBait)
+            _fishBait.HookUp();
 
-        moveDir = Vector2.MoveTowards(transform.position, moveTargetPos, float.MaxValue);
-        moveDir.y = 0;
+        _fishBait = Instantiate(_fishingBaitPrefab, BaitSpawnPoint);
+        _fishBait.Init(ownerBoat: this, hookRange: Random.Range(_minHookRange, _maxHookRange));
 
-        Rb2d.velocity = moveDir;
-
-        Rb2d.MovePosition(lerpTargetPos);
+        Invoke(nameof(SpawnHook), Random.Range(5, 15));
     }
 
-    public void HookUp(FishingBait hookedBait, Player player)
+
+    private void OnDrawGizmosSelected()
     {
-        player.Rb2d.velocity = default;
-        player.Rb2d.isKinematic = true;
-
-        player.Mouth.parent = transform;
-        player.Mouth.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 0));
-
-        player.transform.parent = player.Mouth;
-        player.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 90));
-
-        StartCoroutine(hookedBait.AnimHookup());
+        Gizmos.DrawLine(BaitSpawnPoint.position + Vector3.down * _minHookRange, BaitSpawnPoint.position + Vector3.down * _maxHookRange); 
     }
-
 }
