@@ -5,25 +5,28 @@ public class FishingBait : Character, IEatable
 {
     [SerializeField] FishingBoat _ownerBoat;
 
-    float _hookRange;
-
     LineRenderer _lineRenderer;
+    RectTransform _areaRectT;
 
-    public void Init(FishingBoat ownerBoat, float hookRange) 
+    bool _isCaught;
+
+    public void Init(FishingBoat ownerBoat, RectTransform areaRectT) 
     {
         _ownerBoat = ownerBoat;
-        _hookRange = hookRange;
+        _areaRectT = areaRectT;
     }
 
     private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        transform.position = new Vector3(transform.parent.position.x, - _hookRange, 0);
     }
 
     void Update()
     {
         UpdateHookLine();
+
+
+        MoveTowardPlayer();
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -32,7 +35,37 @@ public class FishingBait : Character, IEatable
             return;
 
         EatenBy(player);
-    } 
+    }
+
+    private void MoveTowardPlayer()
+    {
+        if (_isCaught) return;
+
+        //Find
+        Player target = FindAnyObjectByType<Player>();
+
+        //Not Exist
+        if (target == null)
+            return;
+
+        //Check Player Inside
+        if (!IsPointInRT(target.transform.position, _areaRectT))
+        {
+            Rb2d.velocity = Vector2.zero;
+            return;
+        }
+
+        //Move To
+        Vector2 lerpTargetPos = Vector2.LerpUnclamped(transform.position, target.transform.position, Speed * 7.5f * Time.deltaTime );
+        Rb2d.MovePosition(lerpTargetPos);
+    }
+
+    bool IsPointInRT(Vector2 point, RectTransform rt)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, point, null, out Vector2 localPoint);
+
+        return rt.rect.Contains(localPoint);
+    }
 
     public void EatenBy(Player player)
     {
@@ -41,6 +74,7 @@ public class FishingBait : Character, IEatable
         if (player.Heart > 0)
             return;
 
+        _isCaught = true;
         HookUp(player);
     }
     void UpdateHookLine()
@@ -67,7 +101,6 @@ public class FishingBait : Character, IEatable
     }
     public IEnumerator AnimHookup()
     {
-        
         Rb2d.velocity = default;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().color = new(0, 0, 0, .3f);
@@ -79,8 +112,6 @@ public class FishingBait : Character, IEatable
 
             yield return new WaitForSeconds(.025f);
         }
-
-        Destroy(gameObject);
     }
 
 }

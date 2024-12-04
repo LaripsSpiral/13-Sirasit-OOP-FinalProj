@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335e09a393c548b4495ba57bd6f5b0f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 3
   moveDir: {x: 0, y: 0}
-  ownerBoat: {fileID: 0}
+  _ownerBoat: {fileID: 0}
 --- !u!61 &8337978318617196422
 BoxCollider2D:
   m_ObjectHideFlags: 0

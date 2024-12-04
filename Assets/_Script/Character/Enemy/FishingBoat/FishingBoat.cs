@@ -5,8 +5,7 @@ public class FishingBoat : Enemy
     [SerializeField] FishingBait _fishingBaitPrefab;
 
     public Transform BaitSpawnPoint;
-
-    [SerializeField] float _minHookRange , _maxHookRange;
+    [SerializeField] RectTransform _fishingArea;
 
     FishingBait _fishBait;
 
@@ -22,18 +21,7 @@ public class FishingBoat : Enemy
 
     void SpawnHook()
     {
-        if (_fishBait)
-            _fishBait.HookUp();
-
         _fishBait = Instantiate(_fishingBaitPrefab, BaitSpawnPoint);
-        _fishBait.Init(ownerBoat: this, hookRange: Random.Range(_minHookRange, _maxHookRange));
-
-        Invoke(nameof(SpawnHook), Random.Range(5, 15));
-    }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawLine(BaitSpawnPoint.position + Vector3.down * _minHookRange, BaitSpawnPoint.position + Vector3.down * _maxHookRange); 
+        _fishBait.Init(ownerBoat: this, areaRectT: _fishingArea);
     }
 }
