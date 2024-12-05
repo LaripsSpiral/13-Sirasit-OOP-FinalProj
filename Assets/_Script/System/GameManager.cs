@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Ref")]
+    [Header("Ref/Cam")]
     [SerializeField] CinemachineVirtualCamera _mainMenuCam;
 
+    [Header("Ref/UI")]
     [SerializeField] Canvas _hudCanvas;
     [SerializeField] Canvas _mainMenuCanvas;
 
+    [Header("Ref/UI/Pause")]
+    [SerializeField] Canvas _pauseSceneCanvas;
+    [SerializeField] GameObject _wonPanel, _lostPanel;
 
+
+    [Header("State")]
     [SerializeField] GameState _currGameState = GameState.MainMenu;
     public GameState GetCurrGameState { get => _currGameState; }
 
@@ -59,6 +65,20 @@ public class GameManager : MonoBehaviour
         _hudCanvas.gameObject.SetActive(true);
 
         Time.timeScale = 1f;
+    }
+
+    void GamePause()
+    {
+        _pauseSceneCanvas.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void GameEnd(bool isWon)
+    {
+        GamePause();
+
+        _wonPanel.SetActive(isWon);
+        _lostPanel.SetActive(!isWon);
     }
 }
 

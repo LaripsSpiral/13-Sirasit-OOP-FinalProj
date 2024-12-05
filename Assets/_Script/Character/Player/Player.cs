@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 public class Player : Character
 {
     public Transform Mouth;
+
+    GameManager _gameManager;
 
     [Header("Health")]
     [SerializeField] private Transform _heartUIParent;
@@ -25,6 +28,14 @@ public class Player : Character
     [SerializeField] private TMP_Text _foodProgValueTxt;
     [SerializeField] private float _foodMaxValue;
     [SerializeField] private float _foodValue;
+    public float FoodValue { get => _foodValue; private set => _foodValue = Mathf.Clamp(value, 0, _foodMaxValue); }
+
+
+    override protected void Awake()
+    {
+        base.Awake();
+        _gameManager = FindAnyObjectByType<GameManager>();
+    }
 
     private void Start()
     {
@@ -66,17 +77,25 @@ public class Player : Character
     #region FoodProg
     public void IncreaseFoodValue(float foodAmount)
     {
-        _foodValue += foodAmount;
-        Debug.Log($"{this} Increase Food Value by {foodAmount}");
+        FoodValue += foodAmount;
+        Debug.Log($"{this} Increase Food Value by {foodAmount} to {FoodValue}");
 
         UpdateFoodProgressBar();
     }
 
     void UpdateFoodProgressBar()
     {
-        Debug.Log($"{this} Food Value is {_foodValue}");
+        Debug.Log($"{this} Food Value is {FoodValue}");
         _foodProgSlider.value = _foodValue;
-        _foodProgValueTxt.text = Mathf.FloorToInt(_foodValue / _foodMaxValue * 100) + "%";
+        _foodProgValueTxt.text = Mathf.FloorToInt(FoodValue / _foodMaxValue * 100) + "%";
+
+        if (FoodValue == _foodMaxValue)
+            FullFoodProgress();
+    }
+
+    void FullFoodProgress()
+    {
+        _gameManager.GameEnd(true);
     }
     #endregion FoodProg
 
@@ -114,6 +133,7 @@ public class Player : Character
     void Death()
     {
         this.enabled = false;
+        _gameManager.GameEnd(false);
     }
     #endregion Health
 }
