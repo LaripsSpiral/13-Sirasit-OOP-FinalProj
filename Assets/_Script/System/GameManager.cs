@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("State")]
     [SerializeField] GameState _currGameState = GameState.MainMenu;
-    public GameState GetCurrGameState { get => _currGameState; }
+    public GameState CurrGameState { get => _currGameState; }
 
     private void Start()
     {

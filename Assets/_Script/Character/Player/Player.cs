@@ -53,14 +53,14 @@ public class Player : Character
     private void Update()
     {
         //Movement
-        moveDir = GetMoveDir();
+        _moveDir = GetMoveDir();
     }
 
     override protected void FixedUpdate()
     {
         //Movement
         base.FixedUpdate();
-        Move(moveDir);
+        Move(_moveDir);
     }
 
     #region Movement

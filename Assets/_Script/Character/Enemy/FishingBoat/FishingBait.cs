@@ -99,7 +99,8 @@ public class FishingBait : Character, IEatable
 
         StartCoroutine(AnimHookup());
     }
-    public IEnumerator AnimHookup()
+
+    IEnumerator AnimHookup()
     {
         Rb2d.velocity = default;
         GetComponent<Collider2D>().enabled = false;

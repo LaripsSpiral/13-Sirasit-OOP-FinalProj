@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Character">
+    <Position X="22.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQoCABAAAAAAAAAEBAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Script\Character\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy">
+    <Position X="19.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\Character\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="21.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAACCCiIAAAAAAAAiAAAARAAAAACkAAAAgAABJGE=</HashCode>
+      <FileName>Assets\_Script\Character\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmallFish">
+    <Position X="23.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAAAAAAAAAAkAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\Character\SmallFish\SmallFish.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FishingBait">
+    <Position X="26" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IASEAAAAACAAEAAAAoAAAAAAAAAABABABAAiAAAAAIA=</HashCode>
+      <FileName>Assets\_Script\Character\Enemy\FishingBoat\FishingBait.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FishingBoat">
+    <Position X="19.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAACAAAAAACEAAAABAAAAAAABABAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\Character\Enemy\FishingBoat\FishingBoat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmalllFishEnvironment">
+    <Position X="16.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQCgAAAECIAgAAQAAAgAAAEgCAAEgAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\Environment\SmalllFishEnvironment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAgAACAABAABAAAgAAAYAAAAAABACABAAgAAAAA=</HashCode>
+      <FileName>Assets\_Script\System\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenu">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAEAAEA=</HashCode>
+      <FileName>Assets\_Script\System\MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeSystem">
+    <Position X="13" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\_Script\System\TimeSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IEatable">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\Interfaces\IEatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GameState">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Script\System\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

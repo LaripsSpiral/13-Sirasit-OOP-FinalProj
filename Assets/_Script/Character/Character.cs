@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
-
     public float Speed = 10;
 
-    [SerializeField] protected Vector2 moveDir;
+    [SerializeField] protected Vector2 _moveDir;
 
     private Rigidbody2D _rb2d;
     public Rigidbody2D Rb2d
