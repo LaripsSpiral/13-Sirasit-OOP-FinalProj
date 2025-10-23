@@ -51,7 +51,7 @@ public class FishingBait : Character, IEatable
         //Check Player Inside
         if (!IsPointInRT(target.transform.position, _areaRectT))
         {
-            Rb2d.velocity = Vector2.zero;
+            Rb2d.linearVelocity = Vector2.zero;
             return;
         }
 
@@ -87,7 +87,7 @@ public class FishingBait : Character, IEatable
     {
         if (player)
         {
-            player.Rb2d.velocity = default;
+            player.Rb2d.linearVelocity = default;
             player.Rb2d.isKinematic = true;
 
             player.Mouth.parent = transform;
@@ -102,7 +102,7 @@ public class FishingBait : Character, IEatable
 
     IEnumerator AnimHookup()
     {
-        Rb2d.velocity = default;
+        Rb2d.linearVelocity = default;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().color = new(0, 0, 0, .3f);
         

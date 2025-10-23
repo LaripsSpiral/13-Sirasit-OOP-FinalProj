@@ -34,7 +34,7 @@ public abstract class Character : MonoBehaviour
     void RotateAlongVelocity()
     {
         //Get Rotate Angle
-        Vector2 dir = Rb2d.velocity;
+        Vector2 dir = Rb2d.linearVelocity;
         float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         //Flip Rotate Angle

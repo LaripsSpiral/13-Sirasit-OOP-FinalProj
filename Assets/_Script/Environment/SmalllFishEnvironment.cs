@@ -33,10 +33,10 @@ public class SmalllFishEnvironment : MonoBehaviour
         SmallFish smallFish;
         if (smallFish = col.transform.GetComponent<SmallFish>())
         {
-            float speed = smallFish.Rb2d.velocity.magnitude;
-            Vector2 dir = Vector2.Reflect(smallFish.Rb2d.velocity.normalized, col.contacts[0].normal);
+            float speed = smallFish.Rb2d.linearVelocity.magnitude;
+            Vector2 dir = Vector2.Reflect(smallFish.Rb2d.linearVelocity.normalized, col.contacts[0].normal);
 
-            smallFish.Rb2d.velocity = dir * Mathf.Max(speed, 0f);
+            smallFish.Rb2d.linearVelocity = dir * Mathf.Max(speed, 0f);
         }
     }
 
