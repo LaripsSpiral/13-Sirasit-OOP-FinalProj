@@ -1,12 +1,10 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Ref/Cam")]
-    [SerializeField] CinemachineVirtualCamera _mainMenuCam;
+    [SerializeField] CinemachineCamera _mainMenuCam;
 
     [Header("Ref/UI")]
     [SerializeField] Canvas _hudCanvas;
