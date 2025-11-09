@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3726465118039386397}
   - component: {fileID: 468202913050512217}
   - component: {fileID: -5238589611377576339}
-  - component: {fileID: -7336736478102162779}
+  - component: {fileID: 2638982377610778320}
   m_Layer: 10
   m_Name: Small Fishes_19
   m_TagString: Untagged
@@ -52,6 +52,11 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,6 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -109596943
   m_SortingLayer: -2
   m_SortingOrder: 0
@@ -95,6 +101,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7210553557087451380}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -118,23 +125,23 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: -0.0500926, y: 0.013750784}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.2949426, y: 0.41087455}
-    oldSize: {x: 1.3359375, y: 0.84375}
+    oldSize: {x: 0.24428572, y: 0.15428571}
     newSize: {x: 1.71, y: 1.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.24428572, y: 0.15428571}
   m_EdgeRadius: 0
 --- !u!50 &-5238589611377576339
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -145,8 +152,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -159,7 +166,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-7336736478102162779
+--- !u!114 &2638982377610778320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +175,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7210553557087451380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211280990113036438d35ef3b3dd7f03, type: 3}
+  m_Script: {fileID: 11500000, guid: ab33fbce36517e14cb9c293ca7de6577, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Character.Fish
+  speed: 5
+  moveDir: {x: 0, y: 0}
+  rb2d: {fileID: -5238589611377576339}
+  size: 2
