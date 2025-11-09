@@ -7,14 +7,14 @@ namespace Main.Effects
         // Add BuffSpeed
         public float AddSpeedBuff(float value)
         {
-
+            SpeedBuff += value;
             return SpeedBuff;
         }
 
         // Remove BuffSpeed
         public float RemoveSpeedBuff(float value)
         {
-
+            SpeedBuff -= value;
             return SpeedBuff;
         }
     }
