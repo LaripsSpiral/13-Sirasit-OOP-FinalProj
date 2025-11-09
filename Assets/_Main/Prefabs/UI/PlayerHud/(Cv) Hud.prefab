@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 125.91, y: 125.91}
+  m_AnchoredPosition: {x: 23.791077, y: -22.032715}
+  m_SizeDelta: {x: 141.5694, y: 139.9988}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &794164703627508469
 CanvasRenderer:
@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 388912844475167929}
   - component: {fileID: 3985075276462764523}
   - component: {fileID: 620717413144699940}
+  - component: {fileID: 1316363394546790360}
   m_Layer: 5
   m_Name: (Cv) Hud
   m_TagString: Untagged
@@ -256,6 +257,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1316363394546790360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2438867268784035432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529bf72e42d570f4f9ccbe6456eac4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Player.PlayerHealthUI
+  heartUIParent: {fileID: 4131741186037479866}
+  heartPrefab: {fileID: 8581439081939689267, guid: 8d97493d235c39543bec5f4d5575ab20, type: 3}
 --- !u!1 &2735819945067354552
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.50001144, y: -4.4000244}
+  m_AnchoredPosition: {x: 0.5, y: -4.400028}
   m_SizeDelta: {x: 67.76, y: 67.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1953423225127109387
@@ -404,8 +419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 143.89996, y: 396}
-  m_SizeDelta: {x: 307.36, y: 56.53}
+  m_AnchoredPosition: {x: 163.10052, y: 358.2486}
+  m_SizeDelta: {x: 345.5864, y: 62.8555}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3558876782360954094
 CanvasRenderer:
@@ -529,6 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3412983819770221046}
   - component: {fileID: 7555976766861778711}
+  - component: {fileID: 1222711691118926730}
   m_Layer: 5
   m_Name: Food Progress Bar
   m_TagString: Untagged
@@ -555,8 +571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 163.29999, y: 339.99997}
-  m_SizeDelta: {x: 287.96, y: 34.18}
+  m_AnchoredPosition: {x: 184.91333, y: 295.9824}
+  m_SizeDelta: {x: 323.7736, y: 38.0046}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &7555976766861778711
 MonoBehaviour:
@@ -609,6 +625,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1222711691118926730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4693897444568899373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8762a782d84f3841b1f9acca1b844a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Main.ProgressUI
+  _ProgSlider: {fileID: 7555976766861778711}
+  _ProgValueTxt: {fileID: 3192051557443352847}
 --- !u!1 &5069020330446234849
 GameObject:
   m_ObjectHideFlags: 0
