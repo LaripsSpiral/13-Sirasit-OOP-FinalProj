@@ -1,3 +1,4 @@
+using Main.Character.AI;
 using Main.Menu;
 using Main.Player;
 using Main.Times;
@@ -68,6 +69,7 @@ namespace Main
             spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
 
             Debug.Log("[GameManager] Started Game");
+            AiFishManager.Instance.FetchAllFish();
         }
 
         private void EndGame()

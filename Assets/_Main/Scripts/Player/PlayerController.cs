@@ -20,14 +20,14 @@ namespace Main.Player
 
         private void OnEnable()
         {
-            playerInput.actions.FindAction("Move").performed += ctx => character.MoveDir = ctx.ReadValue<Vector2>();
-            playerInput.actions.FindAction("Move").canceled += _ => character.MoveDir = Vector2.zero;
+            playerInput.actions.FindAction("Move").performed += ctx => character.UpdateMoveInput(ctx.ReadValue<Vector2>());
+            playerInput.actions.FindAction("Move").canceled += _ => character.UpdateMoveInput(Vector2.zero);
         }
 
         private void OnDisable()
         {
-            playerInput.actions.FindAction("Move").performed -= ctx => character.MoveDir = ctx.ReadValue<Vector2>();
-            playerInput.actions.FindAction("Move").canceled -= _ => character.MoveDir = Vector2.zero;
+            playerInput.actions.FindAction("Move").performed -= ctx => character.UpdateMoveInput(ctx.ReadValue<Vector2>());
+            playerInput.actions.FindAction("Move").canceled -= _ => character.UpdateMoveInput(Vector2.zero);
         }
     }
 }

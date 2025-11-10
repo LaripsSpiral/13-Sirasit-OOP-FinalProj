@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 962197213454695705}
   - component: {fileID: 6827198472212911536}
   - component: {fileID: 8668267497554695741}
-  - component: {fileID: 8672752555109507142}
+  - component: {fileID: 7317322202857804641}
   m_Layer: 10
   m_Name: Small Fishes_3
   m_TagString: Untagged
@@ -166,7 +166,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8672752555109507142
+--- !u!114 &7317322202857804641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,10 +175,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3909309434557180789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab33fbce36517e14cb9c293ca7de6577, type: 3}
+  m_Script: {fileID: 11500000, guid: 648bed059ef28bd4494c34b360b618d6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Main.Character.Fish
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Character.AI.AiFish
   speed: 5
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 8668267497554695741}
-  size: 2

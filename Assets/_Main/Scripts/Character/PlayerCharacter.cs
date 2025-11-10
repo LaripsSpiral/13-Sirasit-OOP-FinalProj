@@ -15,17 +15,14 @@ namespace Main.Character
         private int currentHealth;
         public int CurrentHealth => currentHealth;
 
-        public Vector2 MoveDir;
-
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            Move(moveDir);
-        }   
-
         public void Setup(int health)
         {
             currentHealth = health;
+        }
+
+        public void UpdateMoveInput(Vector2 moveInput)
+        {
+            moveDir = moveInput;
         }
 
         public void TakeDamage(int damage)
