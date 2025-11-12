@@ -3,6 +3,7 @@ using Main.Menu;
 using Main.Player;
 using Main.Times;
 using Main.WorldStage;
+using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -12,9 +13,6 @@ namespace Main
     {
         public static GameManager Instance;
 
-        private WorldStageSystem worldStage => WorldStageSystem.Instance;
-        private SpawnerSystem spawner => SpawnerSystem.Instance;
-
         [Header("Ref/Camera")]
         [SerializeField]
         private CinemachineCamera mainMenuCamera;
@@ -22,18 +20,33 @@ namespace Main
         [SerializeField]
         private CinemachineCamera playerCamera;
 
-        [Header("Ref/UI")]
+        [Header("Ref/MainUI")]
         [SerializeField]
         private MainMenuUI mainMenuUI;
+
         [SerializeField]
         private PauseUI pauseUI;
 
         [Header("Player")]
         [SerializeField]
-        private int playerHealth = 3;
+        private int maxPlayerHealth = 3;
 
         [SerializeField]
         private PlayerController player;
+
+        [SerializeField]
+        private PlayerHealthUI playerHealthUI;
+
+        [Header("Progress")]
+        [SerializeField, ReadOnly]
+        private float currentProgress = 0;
+
+        [SerializeField]
+        private ProgressUI progressUI;
+
+        [Header("WorldStage")]
+        private WorldStageSystem worldStage => WorldStageSystem.Instance;
+        private SpawnerSystem spawner => SpawnerSystem.Instance;
 
         [Header("FishSpawn")]
         [SerializeField]
@@ -61,7 +74,9 @@ namespace Main
             playerCamera.gameObject.SetActive(true);
 
             // Setup
-            player.Character.Setup(health: playerHealth);
+            player.Character.Setup(health: maxPlayerHealth);
+            player.Character.OnTakeDamage += () => playerHealthUI.UpdateHeartUI(player.Character.CurrentHealth);
+            player.Character.OnAte += () => AddProgres(1);
             player.Character.OnDeath += EndGame;
 
             worldStage.Init();
@@ -78,6 +93,18 @@ namespace Main
             TimeSystem.PauseTime();
 
             pauseUI.ToggleShow(false);
+        }
+
+        private void AddProgres(float addValue)
+        {
+            currentProgress += addValue;
+            progressUI.UpdateUI(currentProgress);
+
+            // Win
+            if (currentProgress > 100)
+            {
+                EndGame();
+            }
         }
     }
 }
