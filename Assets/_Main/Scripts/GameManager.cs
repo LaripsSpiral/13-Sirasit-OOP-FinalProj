@@ -59,7 +59,7 @@ namespace Main
 
         public void Start()
         {
-            TimeSystem.PauseTime();
+            TimeScaleSystem.PauseTime();
             mainMenuCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
             mainMenuUI.ToggleShow(true);
@@ -68,7 +68,7 @@ namespace Main
         public void StartGame()
         {
             Debug.Log("[GameManager] Setup Start");
-            TimeSystem.Resume();
+            TimeScaleSystem.Resume();
 
             mainMenuCamera.gameObject.SetActive(false);
             playerCamera.gameObject.SetActive(true);
@@ -76,7 +76,7 @@ namespace Main
             // Setup
             player.Character.Setup(health: maxPlayerHealth);
             player.Character.OnTakeDamage += () => playerHealthUI.UpdateHeartUI(player.Character.CurrentHealth);
-            player.Character.OnAte += () => AddProgres(1);
+            player.Character.OnAte += AddProgres;
             player.Character.OnDeath += EndGame;
 
             worldStage.Init();
@@ -90,7 +90,7 @@ namespace Main
         private void EndGame()
         {
             Debug.Log("[GameManager] Ended Game");
-            TimeSystem.PauseTime();
+            TimeScaleSystem.PauseTime();
 
             pauseUI.ToggleShow(false);
         }

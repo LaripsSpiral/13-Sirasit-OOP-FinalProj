@@ -14,6 +14,7 @@ namespace Main
 
         private void Start()
         {
+            _ProgSlider.maxValue = 100;
             UpdateUI(0);
         }
 

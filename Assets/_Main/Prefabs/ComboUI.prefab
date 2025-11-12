@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7539437811553850576}
   - component: {fileID: 5390056718553366261}
   m_Layer: 5
-  m_Name: Combo
+  m_Name: ComboUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

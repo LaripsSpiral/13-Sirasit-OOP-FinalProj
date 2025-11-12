@@ -1,3 +1,4 @@
+using Main.Times;
 using NaughtyAttributes;
 using System;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Main.Character
 
         // Update UI
         public event Action OnTakeDamage;
-        public event Action OnAte;
+        public event Action<float> OnAte;
 
         [SerializeField]
         private Collider2D collider2D;
@@ -19,15 +20,13 @@ namespace Main.Character
         private int currentHealth;
         public int CurrentHealth => currentHealth;
 
-        private float iFrameDuration = 2;
-        private float iFrameElapsedTime;
+        [SerializeField]
+        private int iFrameDuration = 1;
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             Move(moveDir);
-
-            UpdateCooldownIFrame();
         }
 
         public void Setup(int health)
@@ -43,7 +42,7 @@ namespace Main.Character
         protected override void Eat(Fish targetFish)
         {
             base.Eat(targetFish);
-            OnAte?.Invoke();
+            OnAte?.Invoke(targetFish.GetSize());
         }
         protected override void Eaten()
         {
@@ -57,8 +56,14 @@ namespace Main.Character
                 return;
 
             // Do IFrame
-            iFrameElapsedTime = iFrameDuration;
             collider2D.enabled = false;
+
+            var countDownEvent = new CountDownEvent(
+                OnFinished: () => collider2D.enabled = true, 
+                CoolDownTime: iFrameDuration
+            );
+
+            CountDownTimer.Instance.AddCountDownEvent("PlayerIFrame", countDownEvent);
 
             currentHealth -= 1;
             Debug.Log($"{this} Taken Damage, left {currentHealth} Health");
@@ -75,21 +80,8 @@ namespace Main.Character
 
         protected override void Death()
         {
-            this.enabled = false;
+            gameObject.SetActive(false);
             OnDeath.Invoke();
-        }
-
-        private void UpdateCooldownIFrame()
-        {
-            if (iFrameElapsedTime > 0)
-            {
-                iFrameElapsedTime -= Time.deltaTime;
-                return;
-            }
-
-            // Reset IFrame
-            iFrameElapsedTime = 0;
-            collider2D.enabled = true;
         }
     }
 }
