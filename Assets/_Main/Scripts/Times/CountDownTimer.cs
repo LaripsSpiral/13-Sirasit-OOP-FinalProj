@@ -19,7 +19,7 @@ namespace Main.Times
         {
             foreach (var cdKeyPair in countDownByID)
             {
-                UpdateCooldownIFrame(cdKeyPair.Key, cdKeyPair.Value);
+                UpdateCooldown(cdKeyPair.Key, cdKeyPair.Value);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Main.Times
             countDownByID.Add(id, cdEvent);
         }
 
-        private void UpdateCooldownIFrame(string id, CountDownEvent cdEvent)
+        private void UpdateCooldown(string id, CountDownEvent cdEvent)
         {
             if (cdEvent.ElapsedTime > 0)
             {
