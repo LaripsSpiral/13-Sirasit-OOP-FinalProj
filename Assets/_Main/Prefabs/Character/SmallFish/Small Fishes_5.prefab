@@ -214,7 +214,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 689752485523890227}
   mouthPos: {fileID: 6810132914747389768}
-  mouthSize: 0.03
+  mouthSize: 0.08
   eatingMask:
     serializedVersion: 2
     m_Bits: 1536

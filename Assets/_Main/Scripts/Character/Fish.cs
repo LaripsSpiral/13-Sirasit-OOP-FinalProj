@@ -37,28 +37,21 @@ namespace Main.Character
             if (fishTarget == this)
                 return;
 
+            // Return, BiggerFish
+            if (fishTarget.GetSize() > GetSize())
+                return;
+
             Eat(fishTarget);
         }
 
         protected virtual void Eat(Fish targetFish)
         {
-            if (targetFish == default)
-                return;
-
-            if (!CanEat())
-                return;
-
             targetFish.Eaten();
         }
 
         protected virtual void Eaten()
         {
             Destroy(gameObject);
-        }
-
-        private bool CanEat()
-        {
-            return true;
         }
 
         private void OnDrawGizmosSelected()
