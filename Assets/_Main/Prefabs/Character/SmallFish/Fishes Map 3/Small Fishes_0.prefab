@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4057771674947929605
+--- !u!1 &279229306992163752
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6298739663837893716}
+  - component: {fileID: 213617298686594503}
   m_Layer: 10
   m_Name: Mouth
   m_TagString: Untagged
@@ -16,22 +16,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6298739663837893716
+--- !u!4 &213617298686594503
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4057771674947929605}
+  m_GameObject: {fileID: 279229306992163752}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0811, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.325, y: -0.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2133845133417273575}
+  m_Father: {fileID: 4810163787831385141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7210553557087451380
+--- !u!1 &895328954735106103
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,41 +39,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2133845133417273575}
-  - component: {fileID: 3726465118039386397}
-  - component: {fileID: 468202913050512217}
-  - component: {fileID: -5238589611377576339}
-  - component: {fileID: -7341114931878928699}
+  - component: {fileID: 3631714571958657039}
+  - component: {fileID: 3563852269267170552}
+  - component: {fileID: 4381287053754080786}
   m_Layer: 10
-  m_Name: Small Fishes_19
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2133845133417273575
+--- !u!4 &3631714571958657039
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210553557087451380}
+  m_GameObject: {fileID: 895328954735106103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.8244057, y: 3.8244057, z: 3.8244057}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6298739663837893716}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 4810163787831385141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3726465118039386397
+--- !u!212 &3563852269267170552
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210553557087451380}
+  m_GameObject: {fileID: 895328954735106103}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -114,24 +111,24 @@ SpriteRenderer:
   m_SortingLayerID: -109596943
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 538823531, guid: f60044c500f656540920594a0fc9ef1e, type: 3}
+  m_Sprite: {fileID: -1659746755, guid: f60044c500f656540920594a0fc9ef1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.71, y: 1.08}
+  m_Size: {x: 1.83, y: 0.95}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &468202913050512217
+--- !u!61 &4381287053754080786
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210553557087451380}
+  m_GameObject: {fileID: 895328954735106103}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -159,26 +156,61 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0500926, y: 0.013750784}
+  m_Offset: {x: -0.045668166, y: 0.017677993}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.2949426, y: 0.41087455}
-    oldSize: {x: 0.24428572, y: 0.15428571}
-    newSize: {x: 1.71, y: 1.08}
+    pivot: {x: 0.32531306, y: 0.3697411}
+    oldSize: {x: 0.26142856, y: 0.13571429}
+    newSize: {x: 1.83, y: 0.95}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.24428572, y: 0.15428571}
+  m_Size: {x: 0.26142856, y: 0.13571429}
   m_EdgeRadius: 0
---- !u!50 &-5238589611377576339
+--- !u!1 &7729630858019020774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4810163787831385141}
+  - component: {fileID: 3100787393255070815}
+  - component: {fileID: 5328990533134483404}
+  m_Layer: 10
+  m_Name: Small Fishes_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4810163787831385141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7729630858019020774}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 213617298686594503}
+  - {fileID: 3631714571958657039}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &3100787393255070815
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210553557087451380}
+  m_GameObject: {fileID: 7729630858019020774}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -198,13 +230,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-7341114931878928699
+--- !u!114 &5328990533134483404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210553557087451380}
+  m_GameObject: {fileID: 7729630858019020774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 648bed059ef28bd4494c34b360b618d6, type: 3}
@@ -212,9 +244,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Main.Character.AI.AiFish
   speed: 0
   moveDir: {x: 0, y: 0}
-  rb2d: {fileID: -5238589611377576339}
-  mouthPos: {fileID: 6298739663837893716}
-  mouthSize: 0.08
+  rb2d: {fileID: 3100787393255070815}
+  mouthPos: {fileID: 213617298686594503}
+  mouthSize: 0.2
   eatingMask:
     serializedVersion: 2
     m_Bits: 1536
