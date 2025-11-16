@@ -6,6 +6,7 @@ using Main.WorldStage;
 using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
@@ -51,6 +52,12 @@ namespace Main
         [Header("FishSpawn")]
         [SerializeField]
         private int startSpawnAmount = 25;
+
+        [Header("Scene Names")]
+        [SerializeField]
+        private string winSceneName = "WinScene";
+        [SerializeField]
+        private string loseSceneName = "LoseScene";
 
         private void Awake()
         {
@@ -103,8 +110,19 @@ namespace Main
             // Win
             if (currentProgress > 100)
             {
-                EndGame();
+                WinGame();
             }
+        }
+        private void WinGame()
+        {
+            Debug.Log("Win");
+            SceneManager.LoadScene(winSceneName);        
+        }
+
+        private void LoseGame()
+        {
+            Debug.Log("Lose");
+            SceneManager.LoadScene(loseSceneName);
         }
     }
 }
