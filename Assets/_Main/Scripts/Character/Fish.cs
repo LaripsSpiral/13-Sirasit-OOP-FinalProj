@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Main.Character
 {
     public class Fish : BaseCharacter
     {
+        public event Action OnDeath;
         public float GetSize() => transform.localScale.y;
 
         [Header("Eating")]
@@ -52,6 +54,7 @@ namespace Main.Character
 
         protected virtual void Eaten()
         {
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
 

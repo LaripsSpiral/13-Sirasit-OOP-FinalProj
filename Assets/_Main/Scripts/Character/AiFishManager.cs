@@ -91,9 +91,18 @@ namespace Main.Character.AI
 
         public void FetchAllFish()
         {
-            fishList.Add(FindAnyObjectByType<PlayerCharacter>());
+            // Add Player
+            var playerCharacter = FindAnyObjectByType<PlayerCharacter>();
+            fishList.Add(playerCharacter);
+            playerCharacter.OnDeath += () => fishList.Remove(playerCharacter);
+
+            // Add AI Fishes
             var aiFishes = FindObjectsByType<AiFish>(sortMode: FindObjectsSortMode.None);
-            fishList.AddRange(aiFishes);
+            foreach (var aiFish in aiFishes)
+            {
+                fishList.Add(aiFish);
+                aiFish.OnDeath += () => fishList.Remove(aiFish);
+            }
 
             Debug.Log($"[AiFishManager] Fetched {aiFishes.Length} Fishes.");
         }
