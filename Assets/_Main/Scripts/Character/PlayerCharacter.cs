@@ -1,3 +1,4 @@
+using Main.Times;
 using NaughtyAttributes;
 using System;
 using UnityEngine;
@@ -10,28 +11,70 @@ namespace Main.Character
 
         // Update UI
         public event Action OnTakeDamage;
+        public event Action<float> OnAte;
+
+        [SerializeField]
+        private Collider2D collider2D;
 
         [SerializeField, ReadOnly]
         private int currentHealth;
         public int CurrentHealth => currentHealth;
 
-        public Vector2 MoveDir;
+        [SerializeField]
+        private int iFrameDuration = 1;
+
+        [SerializeField]
+        private ComboSystem comboSystem;
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             Move(moveDir);
-        }   
+        }
 
         public void Setup(int health)
         {
             currentHealth = health;
         }
 
-        public void TakeDamage(int damage)
+        public void UpdateMoveInput(Vector2 moveInput)
         {
-            currentHealth -= damage;
-            Debug.Log($"{this} Taken {damage} Damage, left {currentHealth} Health ");
+            moveDir = moveInput;
+        }
+
+        protected override void Eat(Fish targetFish)
+        {
+            base.Eat(targetFish);
+            OnAte?.Invoke(targetFish.GetSize());
+
+            if (comboSystem != null)
+            {
+                comboSystem.AddCombo();
+            }
+        }
+        protected override void Eaten()
+        {
+            TakeDamage();
+        }
+
+        private void TakeDamage()
+        {
+            // IFrame
+            if (collider2D.enabled == false)
+                return;
+
+            // Do IFrame
+            collider2D.enabled = false;
+
+            var countDownEvent = new CountDownEvent(
+                OnFinished: () => collider2D.enabled = true,
+                CoolDownTime: iFrameDuration
+            );
+
+            CountDownTimer.Instance.AddCountDownEvent("PlayerIFrame", countDownEvent);
+
+            currentHealth -= 1;
+            Debug.Log($"{this} Taken Damage, left {currentHealth} Health");
 
             OnTakeDamage?.Invoke();
 
@@ -40,13 +83,12 @@ namespace Main.Character
                 return;
 
             Debug.Log($"{this} have no Health left");
-
             Death();
         }
 
         protected override void Death()
         {
-            this.enabled = false;
+            gameObject.SetActive(false);
             OnDeath.Invoke();
         }
     }

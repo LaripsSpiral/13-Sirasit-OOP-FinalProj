@@ -1,18 +1,18 @@
+using Main.Character.AI;
 using Main.Menu;
 using Main.Player;
 using Main.Times;
 using Main.WorldStage;
+using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Main
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-
-        private WorldStageSystem worldStage => WorldStageSystem.Instance;
-        private SpawnerSystem spawner => SpawnerSystem.Instance;
 
         [Header("Ref/Camera")]
         [SerializeField]
@@ -21,22 +21,43 @@ namespace Main
         [SerializeField]
         private CinemachineCamera playerCamera;
 
-        [Header("Ref/UI")]
+        [Header("Ref/MainUI")]
         [SerializeField]
         private MainMenuUI mainMenuUI;
+
         [SerializeField]
         private PauseUI pauseUI;
 
         [Header("Player")]
         [SerializeField]
-        private int playerHealth = 3;
+        private int maxPlayerHealth = 3;
 
         [SerializeField]
         private PlayerController player;
 
+        [SerializeField]
+        private PlayerHealthUI playerHealthUI;
+
+        [Header("Progress")]
+        [SerializeField, ReadOnly]
+        private float currentProgress = 0;
+
+        [SerializeField]
+        private ProgressUI progressUI;
+
+        [Header("WorldStage")]
+        private WorldStageSystem worldStage => WorldStageSystem.Instance;
+        private SpawnerSystem spawner => SpawnerSystem.Instance;
+
         [Header("FishSpawn")]
         [SerializeField]
         private int startSpawnAmount = 25;
+
+        [Header("Scene Names")]
+        [SerializeField]
+        private string winSceneName = "WinScene";
+        [SerializeField]
+        private string loseSceneName = "LoseScene";
 
         private void Awake()
         {
@@ -45,7 +66,7 @@ namespace Main
 
         public void Start()
         {
-            TimeSystem.PauseTime();
+            TimeScaleSystem.PauseTime();
             mainMenuCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
             mainMenuUI.ToggleShow(true);
@@ -54,28 +75,55 @@ namespace Main
         public void StartGame()
         {
             Debug.Log("[GameManager] Setup Start");
-            TimeSystem.Resume();
+            TimeScaleSystem.Resume();
 
             mainMenuCamera.gameObject.SetActive(false);
             playerCamera.gameObject.SetActive(true);
 
             // Setup
-            player.Character.Setup(health: playerHealth);
+            player.Character.Setup(health: maxPlayerHealth);
+            player.Character.OnTakeDamage += () => playerHealthUI.UpdateHeartUI(player.Character.CurrentHealth);
+            player.Character.OnAte += AddProgres;
             player.Character.OnDeath += EndGame;
 
-            worldStage.Init();
-            var spawningFishes = worldStage.GetCurrentStage().SpawningFishes;
-            spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
+            if (spawner != default)
+            {
+                worldStage.Init();
+                var spawningFishes = worldStage.GetCurrentStage().SpawningFishes;
+                spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
+            }
 
             Debug.Log("[GameManager] Started Game");
+            AiFishManager.Instance.FetchAllFish();
         }
 
         private void EndGame()
         {
             Debug.Log("[GameManager] Ended Game");
-            TimeSystem.PauseTime();
+            LoseGame();
+        }
 
-            pauseUI.ToggleShow(false);
+        private void AddProgres(float addValue)
+        {
+            currentProgress += addValue;
+            progressUI.UpdateUI(currentProgress);
+            if (currentProgress >= 100f)
+            {
+                WinGame();
+            }
+        }
+        private void WinGame()
+        {
+            Debug.Log("Win");
+            TimeScaleSystem.Resume();
+            SceneManager.LoadScene(winSceneName);
+        }
+
+        private void LoseGame()
+        {
+            Debug.Log("Lose");
+            TimeScaleSystem.Resume();
+            SceneManager.LoadScene(loseSceneName);
         }
     }
 }

@@ -33,23 +33,28 @@ namespace Main.Character
 
         private void RotateAlongVelocity()
         {
-            //Get Rotate Angle
             Vector2 dir = Rb2d.linearVelocity;
-            float rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-            //Flip Rotate Angle
-            rotAngle -= dir.x < 0 ? -180 : 0;
+            if (dir.sqrMagnitude < 0.01f)
+                return;
 
-            transform.rotation = Quaternion.AngleAxis(rotAngle, Vector3.forward);
+            float rotAngleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-            //Flip Character
-            if (dir.x != 0)
+            float finalRotZ;
+            float rotAngleY;
+
+            if (dir.x < 0)
             {
-                Vector3 flipScale = transform.localScale;
-                flipScale.x = dir.x < 0 ? -1 : 1;
-
-                transform.localScale = flipScale;
+                rotAngleY = 180f;
+                finalRotZ = 180f - rotAngleZ;
             }
+            else
+            {
+                rotAngleY = 0f;
+                finalRotZ = rotAngleZ;
+            }
+
+            transform.localEulerAngles = new Vector3(0f, rotAngleY, finalRotZ);
         }
         public float SetSpeed(float value)
         {

@@ -11,7 +11,7 @@ namespace Main.Player
         [SerializeField] 
         private GameObject heartPrefab;
 
-        private void UpdateHeartUI(int value)
+        public void UpdateHeartUI(int value)
         {
             //Clear Heart
             foreach (var oldHeart in heartUIParent.GetComponentsInChildren<Image>())
