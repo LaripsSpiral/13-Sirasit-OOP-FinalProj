@@ -23,7 +23,6 @@ namespace Main.Character
             EatingTarget();
         }
 
-
         public void EatingTarget()
         {
             if (mouthPos == default)

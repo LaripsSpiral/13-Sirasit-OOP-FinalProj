@@ -11,7 +11,10 @@ namespace Main.Character.AI
     {
         public static AiFishManager Instance;
 
-        private List<AiFish> aiFishList = new List<AiFish>();
+        [SerializeField]
+        private PlayerCharacter playerCharacter;
+
+        private List<Fish> fishList = new List<Fish>();
         private JobHandle jobHandle;
 
         public const float MAX_SEARCH_DISTANCE = 30f;
@@ -23,50 +26,63 @@ namespace Main.Character.AI
 
         private void Update()
         {
-            if (aiFishList.Count == 0)
+            if (fishList.Count == 0)
                 return;
 
-            var inputData = new NativeArray<FishJobInput>(aiFishList.Count, Allocator.TempJob);
-            var outputResults = new NativeArray<FishJobOutput>(aiFishList.Count, Allocator.TempJob);
+            var fishesCount = fishList.Count;
+            var inputData = new NativeArray<FishJobInput>(fishesCount, Allocator.TempJob);
+            var outputResults = new NativeArray<FishJobOutput>(fishesCount, Allocator.TempJob);
 
             // Get data
-            for (int i = 0; i < aiFishList.Count; i++)
+            for (int i = 0; i < fishesCount; i++)
             {
-                var fish = aiFishList[i];
+                // Fish Data
+                var fish = fishList[i];
                 var position = fish.transform.position;
+                var state = (int)State.Idle;
 
+                // Get AI State if possible
+                if (fish.TryGetComponent<AiFish>(out var aiFish))
+                {
+                    state = (int)aiFish.CurrentState;
+                }
+
+                // Fill Input Data
                 inputData[i] = new FishJobInput
                 {
                     Index = i,
                     Position = new float2(position.x, position.y),
                     Size = fish.GetSize(),
-                    CurrentStateInt = (int)fish.CurrentState
+                    CurrentStateInt = state
                 };
             }
 
             // Job Scheduling
             var aiJob = new FishAIJob
             {
-                AiFishesInput = inputData,
+                FishesInput = inputData,
                 OutputResults = outputResults,
                 MaxSearchDistance = MAX_SEARCH_DISTANCE * MAX_SEARCH_DISTANCE
             };
 
-            jobHandle = aiJob.Schedule(aiFishList.Count, jobHandle);
+            jobHandle = aiJob.Schedule(fishList.Count, jobHandle);
 
             // Wait for job
             jobHandle.Complete();
 
             // Apply
-            for (int i = 0; i < aiFishList.Count; i++)
+            for (int i = 0; i < fishList.Count; i++)
             {
-                var fish = aiFishList[i];
+                var fish = fishList[i];
+
+                if (!fish.TryGetComponent<AiFish>(out var aiFish))
+                    continue;
+
                 var output = outputResults[i];
+                aiFish.TargetPosition = output.TargetPosition;
+                aiFish.CurrentState = (State)output.StateInt;
 
-                fish.TargetPosition = output.TargetPosition;
-                fish.CurrentState = (State)output.StateInt;
-
-                fish.UpdateMovement();
+                aiFish.UpdateMovement();
             }
 
             inputData.Dispose();
@@ -75,10 +91,11 @@ namespace Main.Character.AI
 
         public void FetchAllFish()
         {
+            fishList.Add(FindAnyObjectByType<PlayerCharacter>());
             var aiFishes = FindObjectsByType<AiFish>(sortMode: FindObjectsSortMode.None);
-            aiFishList.AddRange(aiFishes);
+            fishList.AddRange(aiFishes);
 
-            Debug.Log($"[AiFishManager] Fetched {aiFishes.Length} AI Fishes.");
+            Debug.Log($"[AiFishManager] Fetched {aiFishes.Length} Fishes.");
         }
     }
 
@@ -108,7 +125,7 @@ namespace Main.Character.AI
     {
         // Input
         [ReadOnly]
-        public NativeArray<FishJobInput> AiFishesInput;
+        public NativeArray<FishJobInput> FishesInput;
 
         [ReadOnly]
         public float MaxSearchDistance;
@@ -120,7 +137,7 @@ namespace Main.Character.AI
         public void Execute(int index)
         {
             // Self
-            var ownInput = AiFishesInput[index];
+            var ownInput = FishesInput[index];
             var ownSize = ownInput.Size;
             var ownPosition = ownInput.Position;
             var closestTarget = MaxSearchDistance;
@@ -132,17 +149,17 @@ namespace Main.Character.AI
             var isFoundTarget = false;
 
             // Find target
-            for (int i = 0; i < AiFishesInput.Length; i++)
+            for (int i = 0; i < FishesInput.Length; i++)
             {
                 // Skip self
                 if (i == index)
                     continue;
 
-                var otherFish = AiFishesInput[i];
+                var otherFish = FishesInput[i];
                 var distance = math.lengthsq(otherFish.Position - ownPosition);
 
                 // Found Prey
-                if (otherFish.Size < ownSize * 0.9f)
+                if (otherFish.Size < ownSize)
                 {
                     // Hunt
                     closestTarget = distance;
@@ -152,7 +169,7 @@ namespace Main.Character.AI
                 }
 
                 // Found Predator
-                else if (otherFish.Size > ownSize * 1.1f)
+                else if (otherFish.Size > ownSize)
                 {
                     // Fleeing
                     if (distance < closestTarget * 1.5f || newState != (int)State.Fleeing)
