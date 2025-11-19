@@ -2100,6 +2100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinLoseUIManager
   mainSceneName: Default
+  winSceneName: WinScene
+  loseSceneName: LoseScene
 --- !u!1 &414518169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,7 +2138,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 414518173}
   mouthPos: {fileID: 120720312}
-  mouthSize: 0
+  mouthSize: 0.5
   eatingMask:
     serializedVersion: 2
     m_Bits: 1024

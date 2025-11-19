@@ -29,10 +29,10 @@ namespace Main.Character
                 return;
 
             var hit = Physics2D.CircleCast(mouthPos.position, mouthSizeSqr, transform.forward, mouthSizeSqr, eatingMask);
-            if (hit == default)
+            if (hit == default || hit.collider.attachedRigidbody == default)
                 return;
 
-            if (!hit.collider.TryGetComponent<Fish>(out var fishTarget))
+            if (!hit.collider.attachedRigidbody.TryGetComponent<Fish>(out var fishTarget))
                 return;
 
             if (fishTarget == this)

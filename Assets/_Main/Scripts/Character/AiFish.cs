@@ -17,7 +17,6 @@ namespace Main.Character.AI
             Move(direction, ForceMode2D.Force, multiplier: 0.01f);
         }
 
-
         private void OnDrawGizmos()
         {
             // Draw fish state
