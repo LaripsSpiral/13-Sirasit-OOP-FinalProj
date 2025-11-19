@@ -669,15 +669,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -726,6 +726,14 @@ PrefabInstance:
     - target: {fileID: 4904261380589387565, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_Name
       value: Small Fishes_9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114544506277667979, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119169010151989568, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2673,7 +2681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &692579849
 Transform:
   m_ObjectHideFlags: 0
@@ -3623,6 +3631,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1910634386}
     m_Modifications:
+    - target: {fileID: -7224022951798139021, guid: 15ab0e959cdf9ed489df251a77df28dd, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 689752485523890227, guid: 15ab0e959cdf9ed489df251a77df28dd, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3983432273516969596, guid: 15ab0e959cdf9ed489df251a77df28dd, type: 3}
       propertyPath: m_Name
       value: Small Fishes_5
@@ -3850,7 +3866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1139092447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4951,6 +4967,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1910634386}
     m_Modifications:
+    - target: {fileID: -2851196758000907003, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -5005,6 +5025,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213368711929485890, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_LinearDamping
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}

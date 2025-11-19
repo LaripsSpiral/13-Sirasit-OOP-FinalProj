@@ -86,9 +86,12 @@ namespace Main
             player.Character.OnAte += AddProgres;
             player.Character.OnDeath += EndGame;
 
-            worldStage.Init();
-            var spawningFishes = worldStage.GetCurrentStage().SpawningFishes;
-            spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
+            if (spawner != default)
+            {
+                worldStage.Init();
+                var spawningFishes = worldStage.GetCurrentStage().SpawningFishes;
+                spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
+            }
 
             Debug.Log("[GameManager] Started Game");
             AiFishManager.Instance.FetchAllFish();
