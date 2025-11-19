@@ -78,7 +78,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 3539150386766323341}
   mouthPos: {fileID: 4132097893630233831}
-  mouthSize: 0.2
+  mouthSize: 0.8
   eatingMask:
     serializedVersion: 2
     m_Bits: 1536
@@ -110,7 +110,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.0450654, y: 4.0450654, z: 4.0450654}
+  m_LocalScale: {x: 14.025726, y: 14.025726, z: 14.025726}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9133716059819685403}
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 3056242930010057617}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.283, y: -0.053, z: 0}
+  m_LocalPosition: {x: 0.959, y: -0.182, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

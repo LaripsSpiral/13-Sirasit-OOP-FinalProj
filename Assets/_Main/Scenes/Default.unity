@@ -936,7 +936,7 @@ Transform:
   m_GameObject: {fileID: 120720311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.481, y: -0.065, z: 0}
+  m_LocalPosition: {x: 1.566, y: -0.174, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2009,7 +2009,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 414518173}
   mouthPos: {fileID: 120720312}
-  mouthSize: 0.15
+  mouthSize: 0.5
   eatingMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -2096,7 +2096,7 @@ Transform:
   m_GameObject: {fileID: 414518169}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -6, z: 0}
+  m_LocalPosition: {x: 5, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2620,7 +2620,7 @@ Transform:
   m_GameObject: {fileID: 588197321}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.28, y: 7.05, z: -10}
+  m_LocalPosition: {x: -14.225293, y: 7.0499997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5302,7 +5302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3130379, y: 1.3130379, z: 1.3130379}
+  m_LocalScale: {x: 4.063346, y: 4.063346, z: 4.063346}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 414518174}
