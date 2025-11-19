@@ -4,12 +4,15 @@ namespace Main.Character
 {
     public class Fish : BaseCharacter
     {
+        public float BodySize => transform.localScale.y;
+
         [Header("Eating")]
         [SerializeField]
         private Transform mouthPos;
 
         [SerializeField]
         private float mouthSize;
+        private float mouthSizeSqr => mouthSize * BodySize;
 
         [SerializeField]
         private LayerMask eatingMask;
@@ -24,10 +27,10 @@ namespace Main.Character
 
         public void EatingTarget()
         {
-            if (mouthSize == default)
+            if (mouthPos == default)
                 return;
 
-            var hit = Physics2D.CircleCast(mouthPos.position, mouthSize, transform.forward, mouthSize, eatingMask);
+            var hit = Physics2D.CircleCast(mouthPos.position, mouthSizeSqr, transform.forward, mouthSizeSqr, eatingMask);
             if (hit == default)
                 return;
 
@@ -56,10 +59,10 @@ namespace Main.Character
 
         private void OnDrawGizmosSelected()
         {
-            if (mouthSize == default)
+            if (mouthPos == default)
                 return;
 
-            Gizmos.DrawWireSphere(mouthPos.position, mouthSize);
+            Gizmos.DrawWireSphere(mouthPos.position, mouthSizeSqr);
         }
     }
 }
