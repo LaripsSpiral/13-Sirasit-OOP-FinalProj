@@ -23,6 +23,9 @@ namespace Main.Character
         [SerializeField]
         private int iFrameDuration = 1;
 
+        [SerializeField]
+        private ComboSystem comboSystem;
+
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -43,6 +46,11 @@ namespace Main.Character
         {
             base.Eat(targetFish);
             OnAte?.Invoke(targetFish.GetSize());
+
+            if (comboSystem != null)
+            {
+                comboSystem.AddCombo();
+            }
         }
         protected override void Eaten()
         {
@@ -59,7 +67,7 @@ namespace Main.Character
             collider2D.enabled = false;
 
             var countDownEvent = new CountDownEvent(
-                OnFinished: () => collider2D.enabled = true, 
+                OnFinished: () => collider2D.enabled = true,
                 CoolDownTime: iFrameDuration
             );
 

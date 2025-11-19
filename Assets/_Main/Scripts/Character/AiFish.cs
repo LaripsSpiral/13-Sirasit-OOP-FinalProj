@@ -14,10 +14,10 @@ namespace Main.Character.AI
             float2 currentPos = new float2(transform.position.x, transform.position.y);
             float2 direction = TargetPosition - currentPos;
 
-            Move(direction, ForceMode2D.Force, multiplier: 0.01f); 
+            Move(direction, ForceMode2D.Force, multiplier: 0.01f);
         }
 
-        
+
         private void OnDrawGizmos()
         {
             // Draw fish state
