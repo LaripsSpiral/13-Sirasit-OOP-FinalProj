@@ -14,7 +14,7 @@ namespace Main.Character.AI
         private List<AiFish> aiFishList = new List<AiFish>();
         private JobHandle jobHandle;
 
-        private const float MAX_SEARCH_DISTANCE = 30f;
+        public const float MAX_SEARCH_DISTANCE = 30f;
 
         private void Awake()
         {
@@ -77,6 +77,8 @@ namespace Main.Character.AI
         {
             var aiFishes = FindObjectsByType<AiFish>(sortMode: FindObjectsSortMode.None);
             aiFishList.AddRange(aiFishes);
+
+            Debug.Log($"[AiFishManager] Fetched {aiFishes.Length} AI Fishes.");
         }
     }
 
@@ -176,7 +178,7 @@ namespace Main.Character.AI
                     case (int)State.Idle:
 
                         // Random Wandering Position
-                        var randomSeed = (uint)(ownInput.Index * 1000f + ownPosition.x * 100 + ownPosition.y * 100);
+                        var randomSeed = (uint)(ownInput.Index * 1000f + ownPosition.x * 100 + ownPosition.y * 100 + 100);
                         Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
 
                         newTargetPos.x = random.NextFloat(-50f, 50f);

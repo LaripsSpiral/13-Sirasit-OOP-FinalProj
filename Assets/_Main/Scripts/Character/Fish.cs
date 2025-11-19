@@ -4,7 +4,7 @@ namespace Main.Character
 {
     public class Fish : BaseCharacter
     {
-        public float BodySize => transform.localScale.y;
+        public float GetSize() => transform.localScale.y;
 
         [Header("Eating")]
         [SerializeField]
@@ -12,7 +12,7 @@ namespace Main.Character
 
         [SerializeField]
         private float mouthSize;
-        private float mouthSizeSqr => mouthSize * BodySize;
+        private float mouthSizeSqr => mouthSize * GetSize();
 
         [SerializeField]
         private LayerMask eatingMask;
@@ -23,7 +23,6 @@ namespace Main.Character
             EatingTarget();
         }
 
-        public float GetSize() => transform.localScale.x;
 
         public void EatingTarget()
         {
