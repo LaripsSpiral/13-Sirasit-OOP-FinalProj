@@ -100,18 +100,14 @@ namespace Main
         private void EndGame()
         {
             Debug.Log("[GameManager] Ended Game");
-            TimeScaleSystem.PauseTime();
-
-            pauseUI.ToggleShow(false);
+            LoseGame();
         }
 
         private void AddProgres(float addValue)
         {
             currentProgress += addValue;
             progressUI.UpdateUI(currentProgress);
-
-            // Win
-            if (currentProgress > 100)
+            if (currentProgress >= 100f)
             {
                 WinGame();
             }
@@ -119,12 +115,14 @@ namespace Main
         private void WinGame()
         {
             Debug.Log("Win");
-            SceneManager.LoadScene(winSceneName);        
+            TimeScaleSystem.Resume();
+            SceneManager.LoadScene(winSceneName);
         }
 
         private void LoseGame()
         {
             Debug.Log("Lose");
+            TimeScaleSystem.Resume();
             SceneManager.LoadScene(loseSceneName);
         }
     }

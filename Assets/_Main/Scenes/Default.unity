@@ -2039,6 +2039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 361681542}
   - component: {fileID: 361681543}
+  - component: {fileID: 361681544}
   m_Layer: 0
   m_Name: '[GameManager]'
   m_TagString: Untagged
@@ -2086,6 +2087,19 @@ MonoBehaviour:
   startSpawnAmount: 25
   winSceneName: WinScene
   loseSceneName: LoseScene
+--- !u!114 &361681544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361681540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936e0dce56a1e814b92656ea230c8162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinLoseUIManager
+  mainSceneName: Default
 --- !u!1 &414518169
 GameObject:
   m_ObjectHideFlags: 0
