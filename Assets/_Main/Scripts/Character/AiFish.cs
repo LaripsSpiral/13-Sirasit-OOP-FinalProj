@@ -5,9 +5,6 @@ namespace Main.Character.AI
 {
     public class AiFish : Fish
     {
-        public const float VISION_RANGE = 5f;
-        public const float VISION_ANGLE = 120f;
-
         public State CurrentState { get; set; }
         public float2 TargetPosition { get; set; }
 
@@ -57,7 +54,7 @@ namespace Main.Character.AI
             Gizmos.DrawWireSphere(new Vector3(TargetPosition.x, TargetPosition.y, 0), 0.05f);
 
             // Draw vision cone
-            DrawVisionCone(transform.position, transform.right, VISION_RANGE, VISION_ANGLE, Color.cyan);
+            DrawVisionCone(transform.position, transform.right, AiFishManager.VISION_RANGE, AiFishManager.VISION_ANGLE, Color.cyan);
         }
         private void DrawVisionCone(Vector3 origin, Vector3 forward, float range, float angle, Color color)
         {
