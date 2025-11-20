@@ -39,17 +39,24 @@ namespace Main.Times
 
         private void UpdateCooldown(string id, CountDownEvent cdEvent)
         {
-            if (cdEvent.ElapsedTime > 0)
-            {
-                cdEvent.ElapsedTime -= Time.fixedDeltaTime;
-                return;
-            }
-
             if (cdEvent.IsFinished)
                 return;
 
+            // If there's still time left, decrement and call OnTick with remaining ratio
+            if (cdEvent.ElapsedTime > 0)
+            {
+                cdEvent.ElapsedTime -= Time.fixedDeltaTime;
+                float ratio = cdEvent.CoolDownTime > 0 ? Mathf.Clamp01(cdEvent.ElapsedTime / cdEvent.CoolDownTime) : 0f;
+                cdEvent.OnTick?.Invoke(ratio);
+
+                // Not finished yet
+                return;
+            }
+
+            // Mark finished and invoke final callbacks
             Debug.Log($"Finished CountDown ID:{id}");
             cdEvent.IsFinished = true;
+            cdEvent.OnTick?.Invoke(0f);
             cdEvent.OnFinished?.Invoke();
         }
     }
@@ -57,6 +64,9 @@ namespace Main.Times
     public class CountDownEvent
     {
         public Action OnFinished;
+
+        // Called each update with remaining ratio (0..1)
+        public Action<float> OnTick;
 
         public bool IsFinished;
         public float CoolDownTime;
@@ -69,6 +79,7 @@ namespace Main.Times
             this.OnFinished = OnFinished;
             this.CoolDownTime = CoolDownTime;
             this.ElapsedTime = CoolDownTime;
+            this.OnTick = null;
         }
     }
 }

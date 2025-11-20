@@ -51,6 +51,9 @@ namespace Main.Character
             {
                 comboSystem.AddCombo();
             }
+
+            var newBuffTotal = AddTimedSpeedBuff(targetFish.GetSize(), 5f);
+            Debug.Log($"{this} applied speed buff {targetFish.GetSize()}, current total SpeedBuff={newBuffTotal}");
         }
         protected override void Eaten()
         {

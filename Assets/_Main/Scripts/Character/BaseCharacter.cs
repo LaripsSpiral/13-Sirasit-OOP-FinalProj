@@ -1,5 +1,8 @@
 using NaughtyAttributes;
 using UnityEngine;
+using System;
+using Main.Effects;
+using Main.Times;
 
 namespace Main.Character
 {
@@ -8,6 +11,50 @@ namespace Main.Character
         [SerializeField]
         protected float speed = 10;
         public float Speed => speed;
+
+        private EffectBuff effectBuff = new EffectBuff();
+
+        public float CurrentSpeedBuff => effectBuff.SpeedBuff;
+        public event Action<float> OnSpeedBuffChanged;
+        public event Action<float> OnSpeedBuffProgress;
+
+        public float AddSpeedBuff(float value)
+        {
+            var result = effectBuff.AddSpeedBuff(value);
+            OnSpeedBuffChanged?.Invoke(effectBuff.SpeedBuff);
+            return result;
+        }
+
+        public float RemoveSpeedBuff(float value)
+        {
+            var result = effectBuff.RemoveSpeedBuff(value);
+            OnSpeedBuffChanged?.Invoke(effectBuff.SpeedBuff);
+            return result;
+        }
+
+        public float AddTimedSpeedBuff(float value, float duration)
+        {
+            var result = AddSpeedBuff(value);
+
+            if (CountDownTimer.Instance == null)
+            {
+                Debug.LogWarning("CountDownTimer instance not found. Timed buff will not be removed automatically.");
+                return result;
+            }
+
+            // Why id ? 
+            // To ensure each timed buff is uniquely identified, preventing conflicts or overwrites (six - seven)
+            string id = $"SpeedBuff_{GetInstanceID()}_{Time.time}";
+            var cdEvent = new CountDownEvent(
+                OnFinished: () => RemoveSpeedBuff(value),
+                CoolDownTime: duration
+            );
+            // Forward per-frame progress to listeners (remaining ratio)
+            cdEvent.OnTick = (ratio) => OnSpeedBuffProgress?.Invoke(ratio);
+            CountDownTimer.Instance.AddCountDownEvent(id, cdEvent);
+
+            return result;
+        }
 
         [SerializeField, ReadOnly]
         protected Vector2 moveDir;
@@ -28,7 +75,8 @@ namespace Main.Character
 
         protected void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
         {
-            Rb2d.AddForce(speed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
+            float effectiveSpeed = speed + effectBuff.SpeedBuff;
+            Rb2d.AddForce(effectiveSpeed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
         }
 
         private void RotateAlongVelocity()
