@@ -17,7 +17,8 @@ namespace Main.Character.AI
         private List<Fish> fishList = new List<Fish>();
         private JobHandle jobHandle;
 
-        public const float MAX_SEARCH_DISTANCE = 30f;
+        public const float VISION_RANGE = 5f;
+        public const float VISION_ANGLE = 120f;
 
         private void Awake()
         {
@@ -38,7 +39,7 @@ namespace Main.Character.AI
             {
                 // Fish Data
                 var fish = fishList[i];
-                var position = fish.transform.position;
+                var transform = fish.transform;
                 var state = (int)State.Idle;
 
                 // Get AI State if possible
@@ -51,7 +52,8 @@ namespace Main.Character.AI
                 inputData[i] = new FishJobInput
                 {
                     Index = i,
-                    Position = new float2(position.x, position.y),
+                    Position = new float2(transform.position.x, transform.position.y),
+                    ForwardDirection = new float2(transform.right.x, transform.right.y),
                     Size = fish.GetSize(),
                     CurrentStateInt = state
                 };
@@ -62,7 +64,8 @@ namespace Main.Character.AI
             {
                 FishesInput = inputData,
                 OutputResults = outputResults,
-                MaxSearchDistance = MAX_SEARCH_DISTANCE * MAX_SEARCH_DISTANCE
+                MaxSearchDistance = VISION_RANGE * VISION_RANGE,
+                MaxVisionAngle = math.cos(math.radians(VISION_ANGLE) / 2f),
             };
 
             jobHandle = aiJob.Schedule(fishList.Count, jobHandle);
@@ -119,6 +122,7 @@ namespace Main.Character.AI
     {
         public int Index;
         public float2 Position;
+        public float2 ForwardDirection;
         public float Size;
         public int CurrentStateInt;
     }
@@ -138,6 +142,9 @@ namespace Main.Character.AI
 
         [ReadOnly]
         public float MaxSearchDistance;
+
+        [ReadOnly]
+        public float MaxVisionAngle;
 
         // Output
         [WriteOnly]
@@ -166,6 +173,14 @@ namespace Main.Character.AI
 
                 var otherFish = FishesInput[i];
                 var distance = math.lengthsq(otherFish.Position - ownPosition);
+
+                // Out of Vision Range
+                if (distance > MaxSearchDistance)
+                    continue;
+
+                // Out of Vision Cone
+                if (!IsInVisionCone(ownPosition, ownInput.ForwardDirection, otherFish.Position, MaxVisionAngle))
+                    continue;
 
                 // Found Prey
                 if (otherFish.Size < ownSize)
@@ -220,6 +235,15 @@ namespace Main.Character.AI
                 TargetPosition = newTargetPos,
                 StateInt = newState,
             };
+        }
+
+        private static bool IsInVisionCone(float2 ownPos, float2 ownForward, float2 targetPos, float cosAngleThreshold)
+        {
+            float2 directionToTarget = math.normalize(targetPos - ownPos);
+            float dotProduct = math.dot(ownForward, directionToTarget);
+
+            // If the dot product is greater than the cosine of the half-angle, the target is in the cone.
+            return dotProduct >= cosAngleThreshold;
         }
     }
 }
