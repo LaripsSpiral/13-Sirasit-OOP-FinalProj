@@ -219,7 +219,7 @@ namespace Main.Character.AI
                     case (int)State.Idle:
 
                         // Random Wandering Position
-                        var randomSeed = (uint)(ownInput.Index * 1000f + ownPosition.x * 100 + ownPosition.y * 100 + 100);
+                        var randomSeed = (uint)(ownInput.Index * 1000f + ownPosition.x * 100 + ownPosition.y * 100) + 1000;
                         Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
 
                         newTargetPos.x = random.NextFloat(-50f, 50f);
