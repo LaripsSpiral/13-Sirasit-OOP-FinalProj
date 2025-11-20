@@ -5,7 +5,7 @@ public class ComboSystem : MonoBehaviour
 {
     [Header("Combo Settings")]
     [SerializeField, Tooltip("Combo time when fish eat other fish ( if not eat other fish, combo will be reset )")]
-    private float comboTime = 10f;
+    private float comboTime = 5f;
 
     [Header("Combo UI")]
     [SerializeField]

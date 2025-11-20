@@ -6,6 +6,8 @@ public class ComboUI : MonoBehaviour
 {
     [Header("Combo UI")]
     [SerializeField]
+    private Canvas comboCanvas;
+    [SerializeField]
     private GameObject comboPanel;
     [SerializeField]
     private TMP_Text comboText;
@@ -166,5 +168,29 @@ public class ComboUI : MonoBehaviour
             return 0; // Yummy!!
         else
             return -1; // No tier yet
+    }
+
+    private void LateUpdate()
+    {
+        // Keep the combo canvas from inheriting/player rotation so it doesn't flip.
+        // This keeps it upright and makes it face the main camera on the horizontal plane.
+        if (comboCanvas != null)
+        {
+            Camera cam = Camera.main;
+            if (cam != null)
+            {
+                Vector3 dir = cam.transform.position - comboCanvas.transform.position;
+                dir.y = 0f; // keep upright (no tilt)
+                if (dir.sqrMagnitude > 0.0001f)
+                {
+                    comboCanvas.transform.rotation = Quaternion.LookRotation(dir);
+                }
+            }
+            else
+            {
+                // If no main camera, just keep canvas upright in world space to avoid flips
+                comboCanvas.transform.rotation = Quaternion.identity;
+            }
+        }
     }
 }

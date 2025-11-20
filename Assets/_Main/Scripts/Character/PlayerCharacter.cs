@@ -26,10 +26,23 @@ namespace Main.Character
         [SerializeField]
         private ComboSystem comboSystem;
 
+        [Header("Buff Settings")]
+        [SerializeField, Tooltip("Additional buff multiplier per combo count. Final buff = baseBuff * (1 + comboCount * comboBuffMultiplier)")]
+        private float comboBuffMultiplier = 0.1f;
+
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             Move(moveDir);
+        }
+
+        private void Start()
+        {
+            // Auto-find combo system if not assigned in inspector
+            if (comboSystem == null)
+            {
+                comboSystem = FindAnyObjectByType<ComboSystem>();
+            }
         }
 
         public void Setup(int health)
@@ -52,8 +65,13 @@ namespace Main.Character
                 comboSystem.AddCombo();
             }
 
-            var newBuffTotal = AddTimedSpeedBuff(targetFish.GetSize(), 5f);
-            Debug.Log($"{this} applied speed buff {targetFish.GetSize()}, current total SpeedBuff={newBuffTotal}");
+            // Scale buff based on current combo count
+            int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
+            float baseBuff = targetFish.GetSize();
+            float finalBuff = baseBuff * (1f + comboCount * comboBuffMultiplier);
+
+            var newBuffTotal = AddTimedSpeedBuff(finalBuff, 5f);
+            Debug.Log($"{this} applied speed buff (base:{baseBuff} combo:{comboCount} final:{finalBuff:F2}), current total SpeedBuff={newBuffTotal}");
         }
         protected override void Eaten()
         {
