@@ -12,10 +12,7 @@ namespace Main.Character.AI
         public static AiFishManager Instance;
 
         [SerializeField]
-        private Transform aiFishArea;
-
-        [SerializeField]
-        private Vector2 areaSize = new Vector2(50, 50);
+        private RectTransform aiFishArea;
 
         [SerializeField]
         private PlayerCharacter playerCharacter;
@@ -82,7 +79,7 @@ namespace Main.Character.AI
                 MaxVisionAngle = math.cos(math.radians(VISION_ANGLE) / 2f),
                 CurrentTime = Time.time,
                 AreaCenter = new float2(aiFishArea.position.x, aiFishArea.position.y),
-                AreaSize = new float2(areaSize.x, areaSize.y)
+                AreaSize = new float2(aiFishArea.rect.width, aiFishArea.rect.height)
             };
 
             jobHandle = aiJob.Schedule(fishList.Count, jobHandle);
@@ -134,7 +131,7 @@ namespace Main.Character.AI
                 return;
 
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(aiFishArea.position, new Vector3(areaSize.x, areaSize.y, 1f));
+            Gizmos.DrawWireCube(aiFishArea.position, new Vector3(aiFishArea.rect.width, aiFishArea.rect.height, 1f));
         }
     }
 
