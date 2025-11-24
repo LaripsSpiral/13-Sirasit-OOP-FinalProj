@@ -3,8 +3,15 @@ using UnityEngine;
 
 namespace Main.Character
 {
+    [RequireComponent(typeof(AudioSource))]
     public class Fish : BaseCharacter
     {
+        [SerializeField]
+        protected AudioSource audioSource;
+
+        [SerializeField]
+        private AudioClip eatSound;
+
         public event Action OnDeath;
         public float GetSize() => transform.localScale.y;
 
@@ -18,6 +25,12 @@ namespace Main.Character
 
         [SerializeField]
         private LayerMask eatingMask;
+
+        private void OnValidate()
+        {
+            audioSource ??= GetComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
 
         protected override void FixedUpdate()
         {
@@ -49,6 +62,7 @@ namespace Main.Character
 
         protected virtual void Eat(Fish targetFish)
         {
+            audioSource.PlayOneShot(eatSound);
             targetFish.Eaten();
         }
 

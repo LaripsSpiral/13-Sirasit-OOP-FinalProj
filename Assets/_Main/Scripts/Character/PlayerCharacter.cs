@@ -9,6 +9,9 @@ namespace Main.Character
     {
         public event Action OnDeath;
 
+        [SerializeField]
+        private AudioClip takeDamageSound;
+
         // Update UI
         public event Action OnTakeDamage;
         public event Action<float> OnAte;
@@ -97,6 +100,7 @@ namespace Main.Character
             currentHealth -= 1;
             Debug.Log($"{this} Taken Damage, left {currentHealth} Health");
 
+            audioSource.PlayOneShot(takeDamageSound);
             OnTakeDamage?.Invoke();
 
             // Check Death
