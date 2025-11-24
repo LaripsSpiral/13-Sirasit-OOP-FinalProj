@@ -25,6 +25,13 @@ namespace Main.Character.AI
             Move(direction, ForceMode2D.Force, multiplier: 0.25f);
         }
 
+        protected override void Eat(Fish targetFish)
+        {
+            base.Eat(targetFish);
+            CurrentState = State.Idle;
+            FocusingTime = 0f;
+        }
+
         private void OnDrawGizmos()
         {
             // Draw fish state
