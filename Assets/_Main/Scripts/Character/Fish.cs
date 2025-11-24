@@ -54,7 +54,7 @@ namespace Main.Character
                 return;
 
             // Return, BiggerFish
-            if (fishTarget.GetSize() > GetSize())
+            if (fishTarget.GetSize() >= GetSize())
                 return;
 
             Eat(fishTarget);

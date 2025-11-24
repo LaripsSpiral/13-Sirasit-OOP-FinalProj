@@ -12,6 +12,12 @@ namespace Main.Character.AI
         public static AiFishManager Instance;
 
         [SerializeField]
+        private Transform aiFishArea;
+
+        [SerializeField]
+        private Vector2 areaSize = new Vector2(50, 50);
+
+        [SerializeField]
         private PlayerCharacter playerCharacter;
 
         private List<Fish> fishList = new List<Fish>();
@@ -20,7 +26,7 @@ namespace Main.Character.AI
         public const float VISION_RANGE = 5f;
         public const float VISION_ANGLE = 120f;
 
-        public const float FOCUS_TARGET_DURATION = 5f;
+        public const float FOCUS_TARGET_DURATION = 2f;
 
         private void Awake()
         {
@@ -44,12 +50,14 @@ namespace Main.Character.AI
                 var transform = fish.transform;
                 var state = (int)State.Idle;
                 var focusingTime = 0f;
+                var targetPos = new float2(transform.position.x, transform.position.y);
 
                 // Get AI State if possible
                 if (fish.TryGetComponent<AiFish>(out var aiFish))
                 {
                     state = (int)aiFish.CurrentState;
                     focusingTime = aiFish.FocusingTime;
+                    targetPos = new float2(aiFish.TargetPosition.x, aiFish.TargetPosition.y);
                 }
 
                 // Fill Input Data
@@ -58,6 +66,7 @@ namespace Main.Character.AI
                     Index = i,
                     Position = new float2(transform.position.x, transform.position.y),
                     ForwardDirection = new float2(transform.right.x, transform.right.y),
+                    CurrentTargetPosition = targetPos,
                     Size = fish.GetSize(),
                     CurrentStateInt = state,
                     FocusingTime = focusingTime
@@ -72,6 +81,8 @@ namespace Main.Character.AI
                 MaxSearchDistance = VISION_RANGE * VISION_RANGE,
                 MaxVisionAngle = math.cos(math.radians(VISION_ANGLE) / 2f),
                 CurrentTime = Time.time,
+                AreaCenter = new float2(aiFishArea.position.x, aiFishArea.position.y),
+                AreaSize = new float2(areaSize.x, areaSize.y)
             };
 
             jobHandle = aiJob.Schedule(fishList.Count, jobHandle);
@@ -116,6 +127,15 @@ namespace Main.Character.AI
 
             Debug.Log($"[AiFishManager] Fetched {aiFishes.Length} Fishes.");
         }
+
+        private void OnDrawGizmos()
+        {
+            if (aiFishArea == null)
+                return;
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireCube(aiFishArea.position, new Vector3(areaSize.x, areaSize.y, 1f));
+        }
     }
 
     public enum State
@@ -130,6 +150,7 @@ namespace Main.Character.AI
         public int Index;
         public float2 Position;
         public float2 ForwardDirection;
+        public float2 CurrentTargetPosition;
         public float Size;
         public int CurrentStateInt;
         public float FocusingTime;
@@ -158,6 +179,12 @@ namespace Main.Character.AI
         [ReadOnly]
         public float CurrentTime;
 
+        [ReadOnly]
+        public float2 AreaCenter;
+
+        [ReadOnly]
+        public float2 AreaSize;
+
         // Output
         [WriteOnly]
         public NativeArray<FishJobOutput> OutputResults;
@@ -171,7 +198,7 @@ namespace Main.Character.AI
             var closestTarget = MaxSearchDistance;
 
             // Target
-            var newTargetPos = ownInput.Position;
+            var newTargetPos = ownInput.CurrentTargetPosition;
             var newState = ownInput.CurrentStateInt;
 
             var isFoundTarget = false;
@@ -227,6 +254,17 @@ namespace Main.Character.AI
             // No target
             if (!isFoundTarget)
             {
+                // Check bounds
+                bool isOutOfBounds =
+                    math.abs(ownPosition.x - AreaCenter.x) > AreaSize.x / 2f ||
+                    math.abs(ownPosition.y - AreaCenter.y) > AreaSize.y / 2f;
+
+                if (isOutOfBounds && newState != (int)State.Hunting && newState != (int)State.Fleeing)
+                {
+                    newState = (int)State.Idle;
+                    focusingTime = 0f;
+                }
+
                 switch (newState)
                 {
                     case (int)State.Fleeing:
@@ -259,13 +297,23 @@ namespace Main.Character.AI
 
                     case (int)State.Idle:
 
-                        // Random Wandering Position
-                        var randomSeed = (uint)((ownInput.Index * 1000f) + (ownPosition.x * 100) + (ownPosition.y * 100) + 1000);
-                        if (randomSeed == 0) randomSeed = 1;
-                        Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
+                        // Check if target is valid (in bounds) and if we reached it
+                        bool isTargetOutOfBounds =
+                            math.abs(newTargetPos.x - AreaCenter.x) > AreaSize.x / 2f ||
+                            math.abs(newTargetPos.y - AreaCenter.y) > AreaSize.y / 2f;
 
-                        newTargetPos.x = random.NextFloat(-50f, 50f);
-                        newTargetPos.y = random.NextFloat(-50f, 50f);
+                        float dist = math.distance(ownPosition, newTargetPos);
+
+                        if (dist < 2f || isTargetOutOfBounds)
+                        {
+                            // Random Wandering Position
+                            var randomSeed = (uint)((ownInput.Index * 1000f) + (ownPosition.x * 100) + (ownPosition.y * 100) + (CurrentTime * 1000));
+                            Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
+
+                            var halfSize = AreaSize / 2f;
+                            newTargetPos.x = random.NextFloat(AreaCenter.x - halfSize.x, AreaCenter.x + halfSize.x);
+                            newTargetPos.y = random.NextFloat(AreaCenter.y - halfSize.y, AreaCenter.y + halfSize.y);
+                        }
                         newState = (int)State.Idle;
                         break;
                 }

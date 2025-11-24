@@ -845,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_9
       objectReference: {fileID: 0}
+    - target: {fileID: 4904261380589387565, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7114544506277667979, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: speed
       value: 30
@@ -5017,6 +5021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48d9c54c49a424408d5cabc3f0b8342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main.Character.AI.AiFishManager
+  aiFishArea: {fileID: 1139092448}
+  areaSize: {x: 3, y: 3}
   playerCharacter: {fileID: 414518170}
 --- !u!4 &1139092448
 Transform:
@@ -5027,7 +5033,7 @@ Transform:
   m_GameObject: {fileID: 1139092446}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.99044, y: 1.34726, z: 0}
+  m_LocalPosition: {x: -5, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
