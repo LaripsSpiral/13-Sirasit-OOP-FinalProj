@@ -20,6 +20,8 @@ namespace Main.Character.AI
         public const float VISION_RANGE = 5f;
         public const float VISION_ANGLE = 120f;
 
+        public const float FOCUS_TARGET_DURATION = 5f;
+
         private void Awake()
         {
             Instance = this;
@@ -41,11 +43,13 @@ namespace Main.Character.AI
                 var fish = fishList[i];
                 var transform = fish.transform;
                 var state = (int)State.Idle;
+                var focusingTime = 0f;
 
                 // Get AI State if possible
                 if (fish.TryGetComponent<AiFish>(out var aiFish))
                 {
                     state = (int)aiFish.CurrentState;
+                    focusingTime = aiFish.FocusingTime;
                 }
 
                 // Fill Input Data
@@ -55,7 +59,8 @@ namespace Main.Character.AI
                     Position = new float2(transform.position.x, transform.position.y),
                     ForwardDirection = new float2(transform.right.x, transform.right.y),
                     Size = fish.GetSize(),
-                    CurrentStateInt = state
+                    CurrentStateInt = state,
+                    FocusingTime = focusingTime
                 };
             }
 
@@ -66,6 +71,7 @@ namespace Main.Character.AI
                 OutputResults = outputResults,
                 MaxSearchDistance = VISION_RANGE * VISION_RANGE,
                 MaxVisionAngle = math.cos(math.radians(VISION_ANGLE) / 2f),
+                CurrentTime = Time.time,
             };
 
             jobHandle = aiJob.Schedule(fishList.Count, jobHandle);
@@ -84,6 +90,7 @@ namespace Main.Character.AI
                 var output = outputResults[i];
                 aiFish.TargetPosition = output.TargetPosition;
                 aiFish.CurrentState = (State)output.StateInt;
+                aiFish.FocusingTime = output.FocusingTime;
 
                 aiFish.UpdateMovement();
             }
@@ -125,12 +132,14 @@ namespace Main.Character.AI
         public float2 ForwardDirection;
         public float Size;
         public int CurrentStateInt;
+        public float FocusingTime;
     }
 
     public struct FishJobOutput
     {
         public float2 TargetPosition;
         public int StateInt; // For Job
+        public float FocusingTime;
     }
 
     [BurstCompile]
@@ -145,6 +154,9 @@ namespace Main.Character.AI
 
         [ReadOnly]
         public float MaxVisionAngle;
+
+        [ReadOnly]
+        public float CurrentTime;
 
         // Output
         [WriteOnly]
@@ -163,6 +175,7 @@ namespace Main.Character.AI
             var newState = ownInput.CurrentStateInt;
 
             var isFoundTarget = false;
+            var focusingTime = ownInput.FocusingTime;
 
             // Find target
             for (int i = 0; i < FishesInput.Length; i++)
@@ -190,6 +203,8 @@ namespace Main.Character.AI
                     newTargetPos = otherFish.Position;
                     newState = (int)State.Hunting;
                     isFoundTarget = true;
+
+                    focusingTime = CurrentTime + AiFishManager.FOCUS_TARGET_DURATION;
                 }
 
                 // Found Predator
@@ -203,23 +218,47 @@ namespace Main.Character.AI
                         newState = (int)State.Fleeing;
                         closestTarget = distance;
                         isFoundTarget = true;
+
+                        focusingTime = CurrentTime + AiFishManager.FOCUS_TARGET_DURATION;
                     }
                 }
             }
 
             // No target
-            if (!isFoundTarget && newState != (int)State.Fleeing)
+            if (!isFoundTarget)
             {
                 switch (newState)
                 {
+                    case (int)State.Fleeing:
+                        if (CurrentTime >= focusingTime)
+                        {
+                            newState = (int)State.Idle;
+                            focusingTime = 0f;
+                        }
+                        else
+                        {
+                            // Keep moving to target
+                            isFoundTarget = true;
+                        }
+                        break;
+
                     case (int)State.Hunting:
-                        newState = (int)State.Idle;
+                        if (CurrentTime >= focusingTime)
+                        {
+                            newState = (int)State.Idle;
+                            focusingTime = 0f;
+                        }
+                        else
+                        {
+                            // Keep moving to target
+                            isFoundTarget = true;
+                        }
                         break;
 
                     case (int)State.Idle:
 
                         // Random Wandering Position
-                        var randomSeed = (uint)(ownInput.Index * 1000f + ownPosition.x * 100 + ownPosition.y * 100) + 1000;
+                        var randomSeed = (uint)((ownInput.Index * 1000f) + (ownPosition.x * 100) + (ownPosition.y * 100) + 1000);
                         Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
 
                         newTargetPos.x = random.NextFloat(-50f, 50f);
@@ -234,6 +273,7 @@ namespace Main.Character.AI
             {
                 TargetPosition = newTargetPos,
                 StateInt = newState,
+                FocusingTime = focusingTime,
             };
         }
 

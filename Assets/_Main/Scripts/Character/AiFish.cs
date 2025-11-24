@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -5,16 +6,23 @@ namespace Main.Character.AI
 {
     public class AiFish : Fish
     {
-        public State CurrentState { get; set; }
-        public float2 TargetPosition { get; set; }
+        [ReadOnly]
+        public State CurrentState;
+
+        [ReadOnly]
+        public float2 TargetPosition;
+
+        [ReadOnly]
+        public float FocusingTime;
 
         // Movement is handled on the main thread, consuming the Job's calculated target
         public void UpdateMovement()
         {
             float2 currentPos = new float2(transform.position.x, transform.position.y);
             float2 direction = TargetPosition - currentPos;
+            direction = math.normalizesafe(direction);
 
-            Move(direction, ForceMode2D.Force, multiplier: 0.01f);
+            Move(direction, ForceMode2D.Force, multiplier: 0.25f);
         }
 
         private void OnDrawGizmos()
@@ -48,6 +56,11 @@ namespace Main.Character.AI
 
         private void OnDrawGizmosSelected()
         {
+            if (mouthPos != default)
+            {
+                Gizmos.DrawWireSphere(mouthPos.position, mouthSizeSqr);
+            }
+
             // Draw target position
             Gizmos.color = Color.softRed;
             Gizmos.DrawLine(transform.position, new Vector3(TargetPosition.x, TargetPosition.y, 0));

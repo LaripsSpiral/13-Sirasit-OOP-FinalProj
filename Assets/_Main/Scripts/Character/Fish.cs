@@ -10,11 +10,11 @@ namespace Main.Character
 
         [Header("Eating")]
         [SerializeField]
-        private Transform mouthPos;
+        protected Transform mouthPos;
 
         [SerializeField]
         private float mouthSize;
-        private float mouthSizeSqr => mouthSize * GetSize();
+        protected float mouthSizeSqr => mouthSize * GetSize();
 
         [SerializeField]
         private LayerMask eatingMask;

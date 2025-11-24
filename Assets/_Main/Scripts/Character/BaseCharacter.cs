@@ -83,7 +83,7 @@ namespace Main.Character
         {
             Vector2 dir = Rb2d.linearVelocity;
 
-            if (dir.sqrMagnitude < 0.01f)
+            if (dir.sqrMagnitude < 0.001f)
                 return;
 
             float rotAngleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
