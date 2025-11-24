@@ -239,6 +239,7 @@ namespace Main.Character.AI
                         {
                             // Keep moving to target
                             isFoundTarget = true;
+                            newTargetPos = ownPosition + ownInput.ForwardDirection * 20f;
                         }
                         break;
 
@@ -252,6 +253,7 @@ namespace Main.Character.AI
                         {
                             // Keep moving to target
                             isFoundTarget = true;
+                            newTargetPos = ownPosition + ownInput.ForwardDirection * 20f;
                         }
                         break;
 
@@ -259,6 +261,7 @@ namespace Main.Character.AI
 
                         // Random Wandering Position
                         var randomSeed = (uint)((ownInput.Index * 1000f) + (ownPosition.x * 100) + (ownPosition.y * 100) + 1000);
+                        if (randomSeed == 0) randomSeed = 1;
                         Unity.Mathematics.Random random = new Unity.Mathematics.Random(randomSeed);
 
                         newTargetPos.x = random.NextFloat(-50f, 50f);
