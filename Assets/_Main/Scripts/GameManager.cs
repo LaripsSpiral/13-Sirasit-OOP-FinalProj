@@ -89,7 +89,7 @@ namespace Main
             if (spawner != default)
             {
                 worldStage.Init();
-                var spawningFishes = worldStage.GetCurrentStage().spawningFishes;
+                var spawningFishes = worldStage.GetCurrentStage().GetSpawningFishes();
                 spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
             }
 
