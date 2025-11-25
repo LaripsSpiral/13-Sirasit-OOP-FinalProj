@@ -48,6 +48,8 @@ namespace Main.Character.AI
                 var state = (int)State.Idle;
                 var focusingTime = 0f;
                 var targetPos = new float2(transform.position.x, transform.position.y);
+                var isPlayer = fish is PlayerCharacter;
+                var behaviorInt = 0; // Default to Passive
 
                 // Get AI State if possible
                 if (fish.TryGetComponent<AiFish>(out var aiFish))
@@ -55,6 +57,7 @@ namespace Main.Character.AI
                     state = (int)aiFish.CurrentState;
                     focusingTime = aiFish.FocusingTime;
                     targetPos = new float2(aiFish.TargetPosition.x, aiFish.TargetPosition.y);
+                    behaviorInt = (int)aiFish.Behavior;
                 }
 
                 // Fill Input Data
@@ -66,7 +69,9 @@ namespace Main.Character.AI
                     CurrentTargetPosition = targetPos,
                     Size = fish.GetSize(),
                     CurrentStateInt = state,
-                    FocusingTime = focusingTime
+                    FocusingTime = focusingTime,
+                    IsPlayer = isPlayer,
+                    BehaviorInt = behaviorInt
                 };
             }
 
@@ -151,6 +156,8 @@ namespace Main.Character.AI
         public float Size;
         public int CurrentStateInt;
         public float FocusingTime;
+        public bool IsPlayer;
+        public int BehaviorInt; // 0 = Passive, 1 = Aggressive
     }
 
     public struct FishJobOutput
@@ -201,7 +208,19 @@ namespace Main.Character.AI
             var isFoundTarget = false;
             var focusingTime = ownInput.FocusingTime;
 
-            // Find target
+            // Only AI fish can hunt (skip if this is the player)
+            // BehaviorInt: 0 = Passive, 1 = Aggressive
+            bool canHunt = ownInput.BehaviorInt == 0 || ownInput.BehaviorInt == 1; // Both can hunt
+            bool isAggressive = ownInput.BehaviorInt == 1; // Aggressive = 1
+
+            // Priority targets: player first for all hunters, but aggressive prioritizes more
+            float2 playerTargetPos = float2.zero;
+            float playerDistance = MaxSearchDistance;
+            bool foundPlayer = false;
+            float2 closestPreyPos = float2.zero;
+            float closestPreyDistance = MaxSearchDistance;
+
+            // Find target - prioritize player first
             for (int i = 0; i < FishesInput.Length; i++)
             {
                 // Skip self
@@ -219,16 +238,22 @@ namespace Main.Character.AI
                 if (!IsInVisionCone(ownPosition, ownInput.ForwardDirection, otherFish.Position, MaxVisionAngle))
                     continue;
 
-                // Found Prey
-                if (otherFish.Size < ownSize)
+                // Check if target is player - prioritize player first for all hunters
+                if (otherFish.IsPlayer && otherFish.Size < ownSize && canHunt)
                 {
-                    // Hunt
-                    closestTarget = distance;
-                    newTargetPos = otherFish.Position;
-                    newState = (int)State.Hunting;
-                    isFoundTarget = true;
+                    playerTargetPos = otherFish.Position;
+                    playerDistance = distance;
+                    foundPlayer = true;
+                }
 
-                    focusingTime = CurrentTime + AiFishManager.FOCUS_TARGET_DURATION;
+                // Found Prey (non-player)
+                if (!otherFish.IsPlayer && otherFish.Size < ownSize && canHunt)
+                {
+                    if (distance < closestPreyDistance)
+                    {
+                        closestPreyPos = otherFish.Position;
+                        closestPreyDistance = distance;
+                    }
                 }
 
                 // Found Predator
@@ -248,6 +273,40 @@ namespace Main.Character.AI
                 }
             }
 
+            // Apply target: prioritize player first for all hunters
+            if (foundPlayer && canHunt)
+            {
+                newTargetPos = playerTargetPos;
+                newState = (int)State.Hunting;
+                isFoundTarget = true;
+                focusingTime = CurrentTime + AiFishManager.FOCUS_TARGET_DURATION;
+            }
+            else if (closestPreyDistance < MaxSearchDistance && canHunt)
+            {
+                // Hunt closest prey if no player found
+                newTargetPos = closestPreyPos;
+                newState = (int)State.Hunting;
+                isFoundTarget = true;
+                focusingTime = CurrentTime + AiFishManager.FOCUS_TARGET_DURATION;
+            }
+
+            // Check if current hunt target is out of bounds - return to center as priority
+            if (newState == (int)State.Hunting && isFoundTarget)
+            {
+                bool isHuntTargetOutOfBounds =
+                    math.abs(newTargetPos.x - AreaCenter.x) > AreaSize.x / 2f ||
+                    math.abs(newTargetPos.y - AreaCenter.y) > AreaSize.y / 2f;
+
+                if (isHuntTargetOutOfBounds)
+                {
+                    // Return to center as priority
+                    newTargetPos = AreaCenter;
+                    newState = (int)State.Idle;
+                    isFoundTarget = true;
+                    focusingTime = 0f;
+                }
+            }
+
             // No target
             if (!isFoundTarget)
             {
@@ -258,7 +317,10 @@ namespace Main.Character.AI
 
                 if (isOutOfBounds && newState != (int)State.Hunting && newState != (int)State.Fleeing)
                 {
+                    // Return to center
+                    newTargetPos = AreaCenter;
                     newState = (int)State.Idle;
+                    isFoundTarget = true;
                     focusingTime = 0f;
                 }
 
