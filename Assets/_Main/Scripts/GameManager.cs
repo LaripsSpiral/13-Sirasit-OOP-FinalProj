@@ -1,6 +1,7 @@
 using Main.Character.AI;
 using Main.Menu;
 using Main.Player;
+using Main.Score;
 using Main.Times;
 using Main.WorldStage;
 using NaughtyAttributes;
@@ -73,6 +74,8 @@ namespace Main
             mainMenuCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
             mainMenuUI.ToggleShow(true);
+
+            ScoreSystem.Instance.Reset();
         }
 
         public void StartGame()
@@ -83,7 +86,8 @@ namespace Main
             mainMenuCamera.gameObject.SetActive(false);
             playerCamera.gameObject.SetActive(true);
 
-            progressUI.Init(MAX_PROGRESS);
+            progressUI.Init(player.Character.GetSize(), MAX_PROGRESS);
+            ScoreUI.Instance.gameObject.SetActive(true);
 
             // Setup
             player.Character.Setup(health: maxPlayerHealth);

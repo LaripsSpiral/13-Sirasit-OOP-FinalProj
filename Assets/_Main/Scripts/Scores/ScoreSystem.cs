@@ -1,16 +1,40 @@
+using TMPro;
 using UnityEngine;
 
-public class ScoreSystem : MonoBehaviour
+namespace Main.Score
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class ScoreSystem : MonoBehaviour
     {
-        
-    }
+        public static ScoreSystem Instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField]
+        private float totalScore;
+        public float TotalScore => totalScore;
+
+        [SerializeField]
+        private TextMeshProUGUI hudValueLabel;
+
+        [SerializeField]
+        private TextMeshProUGUI summaryValueLabel;
+
+        private ScoreUI scoreUI => ScoreUI.Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        public void Reset()
+        {
+            totalScore = 0f;
+        }
+
+        public void AddScore(float value)
+        {
+            totalScore += value;
+            scoreUI.UpdateUI(totalScore);
+        }
+
     }
 }

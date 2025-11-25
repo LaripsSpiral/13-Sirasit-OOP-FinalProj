@@ -14,11 +14,12 @@ namespace Main
 
         private float maxValue;
 
-        public void Init(float maxValue)
+        public void Init(float initValue, float maxValue)
         {
             this.maxValue = maxValue;
+            _ProgSlider.minValue = initValue;
             _ProgSlider.maxValue = this.maxValue;
-            UpdateUI(0);
+            UpdateUI(initValue);
         }
 
         public void UpdateUI(float value)

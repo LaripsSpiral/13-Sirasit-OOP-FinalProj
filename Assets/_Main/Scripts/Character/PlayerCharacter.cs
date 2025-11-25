@@ -1,3 +1,4 @@
+using Main.Score;
 using Main.Times;
 using NaughtyAttributes;
 using System;
@@ -33,6 +34,8 @@ namespace Main.Character
         [SerializeField, Tooltip("Additional buff multiplier per combo count. Final buff = baseBuff * (1 + comboCount * comboBuffMultiplier)")]
         private float comboBuffMultiplier = 0.1f;
 
+        private ScoreSystem scoreSystem => ScoreSystem.Instance;
+
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -60,17 +63,16 @@ namespace Main.Character
 
         protected override void Eat(Fish targetFish)
         {
+            int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
+
             base.Eat(targetFish);
-            transform.localScale += Vector3.one * (targetFish.GetSize() / 30);
+            transform.localScale += Vector3.one * (targetFish.GetSize() / 30) * (comboCount / 5);
             OnAte?.Invoke(targetFish.GetSize());
 
-            if (comboSystem != null)
-            {
-                comboSystem.AddCombo();
-            }
+            comboSystem?.AddCombo();
+            scoreSystem?.AddScore(targetFish.GetSize() * 100 + (30 * comboCount));
 
             // Scale buff based on current combo count
-            int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
             float baseBuff = targetFish.GetSize();
             float finalBuff = baseBuff * (1f + comboCount * comboBuffMultiplier);
 
