@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Main.WorldStage
 {
@@ -13,6 +14,16 @@ namespace Main.WorldStage
 
         [SerializeField]
         private WorldStageData[] worldStageData;
+        public WorldStageData[] WorldStageData => worldStageData;
+
+        [SerializeField]
+        private Transform container;
+
+        [SerializeField]
+        private GameObject currentDecoration;
+
+        [SerializeField]
+        private GameObject currentSky;
 
         public void Awake()
         {
@@ -27,6 +38,8 @@ namespace Main.WorldStage
             {
                 worldStageQueue.Enqueue(data);
             }
+
+            UpdateWorldScene(worldStageQueue.Peek());
         }
         public WorldStageData GetCurrentStage()
         {
@@ -42,7 +55,9 @@ namespace Main.WorldStage
                 return default;
 
             worldStageQueue.Dequeue();
-            return worldStageQueue.Peek();
+            var nextStage = worldStageQueue.Peek();
+            UpdateWorldScene(nextStage);
+            return nextStage;
         }
 
         private bool CheckRemainingStage()
@@ -54,6 +69,24 @@ namespace Main.WorldStage
             }
 
             return true;
+        }
+
+        private void UpdateWorldScene(WorldStageData worldStageData)
+        {
+            if (worldStageData == default)
+                return;
+
+            if (currentDecoration != null)
+            {
+                Destroy(currentDecoration);
+                currentDecoration = Instantiate(worldStageData.GetDecoration(), container);
+            }
+
+            if (currentSky != null)
+            {
+                Destroy(currentSky);
+                currentSky = Instantiate(worldStageData.GetSky(), container);
+            }
         }
     }
 }

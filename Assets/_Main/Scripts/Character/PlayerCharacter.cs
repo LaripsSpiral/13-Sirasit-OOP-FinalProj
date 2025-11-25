@@ -61,6 +61,7 @@ namespace Main.Character
         protected override void Eat(Fish targetFish)
         {
             base.Eat(targetFish);
+            transform.localScale += Vector3.one * (targetFish.GetSize() / 30);
             OnAte?.Invoke(targetFish.GetSize());
 
             if (comboSystem != null)

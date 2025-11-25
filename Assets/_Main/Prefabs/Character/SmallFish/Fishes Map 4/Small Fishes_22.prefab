@@ -49,8 +49,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -59,7 +59,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648bed059ef28bd4494c34b360b618d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main.Character.AI.AiFish
-  speed: 30
+  speed: 50
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 7236163098865364444}
   audioSource: {fileID: 6608173547945414226}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 7843074620834478356}
   - component: {fileID: 7251682642862219685}
   - component: {fileID: 5407560887219601280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295

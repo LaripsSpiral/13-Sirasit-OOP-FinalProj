@@ -1,4 +1,5 @@
 using Main.Character;
+using Main.Character.AI;
 using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,9 +9,6 @@ namespace Main
     public class SpawnerSystem : MonoBehaviour
     {
         public static SpawnerSystem Instance;
-
-        [SerializeField, MinMaxSlider(.5f, 1.5f)]
-        private Vector2 randomScale = Vector2.one;
 
         [SerializeField]
         private Transform parentGroup;
@@ -29,14 +27,16 @@ namespace Main
         /// Spawn fish in start Area. Should only use at Start
         /// </summary>
         /// <param name="spawnArea"></param>
-        private void SpawnFishInArea(Fish[] spawningFish, RectTransform spawnArea)
+        public void SpawnFishInArea(Fish[] spawningFish, float scale, int amount)
         {
+            var spawnArea = _startSpawnArea;
             Vector2 spawnAreaMin = new(spawnArea.rect.min.x + spawnArea.position.x, spawnArea.rect.min.y + spawnArea.position.y);
             Vector2 spawnAreaMax = new(spawnArea.rect.max.x + spawnArea.position.x, spawnArea.rect.max.y + spawnArea.position.y);
 
-            foreach (var fish in spawningFish)
+            for (int i = 0; i < amount; i++)
             {
-                CreateFish(fishPrefabs: fish, spawnAreaMin, spawnAreaMax);
+                var fish = spawningFish[UnityEngine.Random.Range(0, spawningFish.Length)];
+                CreateFish(fishPrefabs: fish, scale: scale, spawnAreaMin, spawnAreaMax);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Main
         /// Spawn fish in offScreen
         /// </summary>
         /// <param name="amount"></param>
-        public void SpawnFish(Fish[] spawningFish, int amount)
+        public void SpawnFish(Fish[] spawningFish, float scale, int amount)
         {
             for (int i = 0; i < amount; i++)
             {
@@ -61,8 +61,10 @@ namespace Main
                     spawnArea.rect.max.x + spawnArea.position.x,
                     spawnArea.rect.max.y + spawnArea.position.y);
 
-                CreateFish(fishPrefabs: fish, spawnAreaMin, spawnAreaMax);
+                CreateFish(fishPrefabs: fish, scale: scale, spawnAreaMin, spawnAreaMax);
             }
+
+            AiFishManager.Instance.FetchAllFish();
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Main
         /// <param name="fishPrefabs"></param>
         /// <param name="spawnAreaMin"></param>
         /// <param name="spawnAreaMax"></param>
-        private void CreateFish(Fish fishPrefabs, Vector2 spawnAreaMin, Vector2 spawnAreaMax)
+        private void CreateFish(Fish fishPrefabs, float scale, Vector2 spawnAreaMin, Vector2 spawnAreaMax)
         {
             Fish fish = Instantiate(fishPrefabs);
             fish.transform.parent = parentGroup;
@@ -83,11 +85,8 @@ namespace Main
 
             fish.transform.position = spawnPos;
 
-            //Scaling
-            var scaleValue = Random.Range(randomScale.x, randomScale.y);
-
-            fish.transform.localScale *= scaleValue;
-            fish.SetSpeed(fish.Speed * scaleValue / 2);
+            fish.transform.localScale = Vector3.one * scale;
+            fish.SetSpeed(fish.Speed);
         }
     }
 }

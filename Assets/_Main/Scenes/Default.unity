@@ -787,11 +787,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.16
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.16
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 895305608562924442, guid: b4e80fd187ad39a4aadb1c898750544d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1352,6 +1352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1446,6 +1450,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1998,6 +2006,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2082,6 +2094,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2412,8 +2428,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.62, y: -1.98}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1.0999994, y: -4.400001}
+  m_SizeDelta: {x: 24.32, y: 8.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &361681540
 GameObject:
@@ -2469,8 +2485,9 @@ MonoBehaviour:
   player: {fileID: 414518171}
   playerHealthUI: {fileID: 8585054743163661856}
   currentProgress: 0
+  maxProgress: 3.5
   progressUI: {fileID: 120105688}
-  startSpawnAmount: 25
+  startSpawnAmount: 500
   winSceneName: WinScene
   loseSceneName: LoseScene
 --- !u!114 &361681544
@@ -2572,6 +2589,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2684,7 +2705,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.5
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -2708,7 +2729,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 120720312}
@@ -3016,6 +3037,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3414,6 +3439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3503,6 +3532,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3657,7 +3690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &692579849
 Transform:
   m_ObjectHideFlags: 0
@@ -3715,6 +3748,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Main.WorldStage.WorldStageSystem
   worldStageData:
   - {fileID: 11400000, guid: 003ebb924e9a02c4385766660d29a1cf, type: 2}
+  - {fileID: 11400000, guid: e5c14d3a4c68a094387c3a854e4b668c, type: 2}
+  - {fileID: 11400000, guid: aa7d4124778dd5f4dbd0f0c76af563a0, type: 2}
+  - {fileID: 11400000, guid: 485ea6bbdc1fe424194a472918fcffd7, type: 2}
+  container: {fileID: 1611073070}
+  currentDecoration: {fileID: 1596892403}
+  currentSky: {fileID: 1745143805}
 --- !u!114 &692579853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3727,7 +3766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b169fb9ce8d94f4fbde936312061d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main.SpawnerSystem
-  randomScale: {x: 0.661, y: 1}
   parentGroup: {fileID: 1910634386}
   _startSpawnArea: {fileID: 1813728197}
   _offScreenSpawnArea:
@@ -4427,6 +4465,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4726,6 +4768,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_5
       objectReference: {fileID: 0}
+    - target: {fileID: 3983432273516969596, guid: 15ab0e959cdf9ed489df251a77df28dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7393314394849493253, guid: 15ab0e959cdf9ed489df251a77df28dd, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -4875,6 +4921,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5154,6 +5204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5398,6 +5452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5592,6 +5650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5681,6 +5743,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6248,6 +6314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6777,6 +6847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6786,6 +6860,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
   m_PrefabInstance: {fileID: 1586407343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1596892403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4735358638316124745, guid: 6d605aee6c8944941a07c7f00c502e05, type: 3}
+  m_PrefabInstance: {fileID: 6530274644343984086}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1602231516
 GameObject:
@@ -6843,7 +6922,7 @@ PolygonCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -7060,6 +7139,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &1611073070 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3963759396998807057, guid: 6d605aee6c8944941a07c7f00c502e05, type: 3}
+  m_PrefabInstance: {fileID: 6530274644343984086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1644991483
 GameObject:
   m_ObjectHideFlags: 0
@@ -7455,6 +7539,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7681,11 +7769,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+--- !u!1 &1745143805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4989685334019600160, guid: 6d605aee6c8944941a07c7f00c502e05, type: 3}
+  m_PrefabInstance: {fileID: 6530274644343984086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1747863547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
@@ -8268,6 +8365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8420,6 +8521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Fishes_7 (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8444,23 +8549,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.441
+      value: -1.76
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.16
+      value: -9.68
       objectReference: {fileID: 0}
     - target: {fileID: 2457311645148145822, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8509,6 +8614,10 @@ PrefabInstance:
     - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
       propertyPath: m_Name
       value: Small Fishes_7 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728396689458498402, guid: 0c598540582cee045b42fc644b0e2a01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9148,6 +9257,10 @@ PrefabInstance:
     - target: {fileID: 3474657374409489430, guid: 6d605aee6c8944941a07c7f00c502e05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735358638316124745, guid: 6d605aee6c8944941a07c7f00c502e05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

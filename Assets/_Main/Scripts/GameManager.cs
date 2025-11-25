@@ -43,6 +43,9 @@ namespace Main
         private float currentProgress = 0;
 
         [SerializeField]
+        private const float MAX_PROGRESS = 0.35f;
+
+        [SerializeField]
         private ProgressUI progressUI;
 
         [Header("WorldStage")]
@@ -80,21 +83,25 @@ namespace Main
             mainMenuCamera.gameObject.SetActive(false);
             playerCamera.gameObject.SetActive(true);
 
+            progressUI.Init(MAX_PROGRESS);
+
             // Setup
             player.Character.Setup(health: maxPlayerHealth);
             player.Character.OnTakeDamage += () => playerHealthUI.UpdateHeartUI(player.Character.CurrentHealth);
-            player.Character.OnAte += AddProgres;
+            player.Character.OnAte += _ => UpdateProgress(player.Character.GetSize());
             player.Character.OnDeath += EndGame;
 
             if (spawner != default)
             {
                 worldStage.Init();
-                var spawningFishes = worldStage.GetCurrentStage().GetSpawningFishes();
-                spawner.SpawnFish(spawningFishes, amount: startSpawnAmount);
+                var currentStage = worldStage.GetCurrentStage();
+                var spawningFishes = currentStage.GetSpawningFishes();
+                var scale = currentStage.GetRandomSizeRange();
+                spawner.SpawnFishInArea(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: startSpawnAmount / 2);
+                spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: startSpawnAmount/2);
             }
 
             Debug.Log("[GameManager] Started Game");
-            AiFishManager.Instance.FetchAllFish();
         }
 
         private void EndGame()
@@ -103,13 +110,44 @@ namespace Main
             LoseGame();
         }
 
-        private void AddProgres(float addValue)
+        private void UpdateProgress(float currSize)
         {
-            currentProgress += addValue;
+            currentProgress = currSize;
             progressUI.UpdateUI(currentProgress);
-            if (currentProgress >= 100f)
+
+            switch (currentProgress)
             {
-                WinGame();
+                case < 0.125f:
+                    if (worldStage.GetCurrentStage() != worldStage.WorldStageData[0])
+                    {
+                        worldStage.NextStage();
+                    }
+                    break;
+
+                case < 0.2f:
+                    if (worldStage.GetCurrentStage() != worldStage.WorldStageData[1])
+                    {
+                        worldStage.NextStage();
+                    }
+                    break;
+
+                case < 0.25f:
+                    if (worldStage.GetCurrentStage() != worldStage.WorldStageData[2])
+                    {
+                        worldStage.NextStage();
+                    }
+                    break;
+
+                case < 0.3f:
+                    if (worldStage.GetCurrentStage() != worldStage.WorldStageData[3])
+                    {
+                        worldStage.NextStage();
+                    }
+                    break;
+
+                case >= MAX_PROGRESS:
+                    WinGame();
+                    break;
             }
         }
         private void WinGame()

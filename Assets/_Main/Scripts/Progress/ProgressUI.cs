@@ -12,16 +12,18 @@ namespace Main
         [SerializeField]
         private TextMeshProUGUI _ProgValueTxt;
 
-        private void Start()
+        private float maxValue;
+
+        public void Init(float maxValue)
         {
-            _ProgSlider.maxValue = 100;
+            this.maxValue = maxValue;
+            _ProgSlider.maxValue = this.maxValue;
             UpdateUI(0);
         }
 
         public void UpdateUI(float value)
         {
-            var percentageValue = Mathf.Clamp(value, 0, 100);
-
+            var percentageValue = Mathf.Clamp(value, 0, maxValue);
             _ProgSlider.value = percentageValue;
             _ProgValueTxt.text = percentageValue.ToString();
         }

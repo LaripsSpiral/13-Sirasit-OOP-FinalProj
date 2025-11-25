@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae23da058b05734a9551e2be274d406, type: 3}
+  m_Name: Stage 4
+  m_EditorClassIdentifier: Assembly-CSharp::Main.WorldStage.WorldStageData
+  randomSizeRange: {x: 2.5, y: 3}
+  sky: {fileID: 2413747048152089624, guid: 65afbf2d51000254cb8e33c02c5caeec, type: 3}
+  decoration: {fileID: 4478371408821722441, guid: 6d09d3843b25a3a4d85c49731a574cc7, type: 3}
+  spawningFishes:
+  - {fileID: 1297301663484428488, guid: fdefa1cae1a3c6c428ca296ce7e84482, type: 3}
+  - {fileID: -7341114931878928699, guid: d22590da936aa1440939d48d87faf7f7, type: 3}
+  - {fileID: 8002114797034389880, guid: 6875e8eb3b3c8b241909bb06685f913d, type: 3}
+  - {fileID: 3079081937000133928, guid: d7e9073afc3958144a63b1507e912827, type: 3}
