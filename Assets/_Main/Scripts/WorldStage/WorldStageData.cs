@@ -7,6 +7,16 @@ namespace Main.WorldStage
     public class WorldStageData : ScriptableObject
     {
         [SerializeField]
-        public Fish[] SpawningFishes;
+        private GameObject sky;
+
+        [SerializeField]
+        private GameObject decoration;
+
+        [SerializeField]
+        private Fish[] spawningFishes;
+
+        public GameObject GetSky() => sky;
+        public GameObject GetDecoration() => decoration;
+        public Fish[] GetSpawningFishes() => spawningFishes;
     }
 }
