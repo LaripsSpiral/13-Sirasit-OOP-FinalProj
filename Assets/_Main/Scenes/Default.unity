@@ -2275,6 +2275,8 @@ MonoBehaviour:
   iFrameDuration: 1
   comboSystem: {fileID: 1288499626}
   comboBuffMultiplier: 0.1
+  dashForce: 2
+  dashCooldown: 1
 --- !u!114 &414518171
 MonoBehaviour:
   m_ObjectHideFlags: 0
