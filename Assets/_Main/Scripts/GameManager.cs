@@ -76,6 +76,7 @@ namespace Main
             mainMenuUI.ToggleShow(true);
 
             ScoreSystem.Instance.Reset();
+            ScoreUI.Instance.gameObject.SetActive(false);
         }
 
         public void StartGame()
