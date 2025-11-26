@@ -22,12 +22,14 @@ namespace Main.Player
         {
             playerInput.actions.FindAction("Move").performed += ctx => character.UpdateMoveInput(ctx.ReadValue<Vector2>());
             playerInput.actions.FindAction("Move").canceled += _ => character.UpdateMoveInput(Vector2.zero);
+            playerInput.actions.FindAction("Dash").performed += _ => character.Dash();
         }
 
         private void OnDisable()
         {
             playerInput.actions.FindAction("Move").performed -= ctx => character.UpdateMoveInput(ctx.ReadValue<Vector2>());
             playerInput.actions.FindAction("Move").canceled -= _ => character.UpdateMoveInput(Vector2.zero);
+            playerInput.actions.FindAction("Dash").performed -= _ => character.Dash();
         }
     }
 }

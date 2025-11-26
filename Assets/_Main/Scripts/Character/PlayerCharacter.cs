@@ -34,12 +34,38 @@ namespace Main.Character
         [SerializeField, Tooltip("Additional buff multiplier per combo count. Final buff = baseBuff * (1 + comboCount * comboBuffMultiplier)")]
         private float comboBuffMultiplier = 0.1f;
 
+        [Header("Dash Settings")]
+        [SerializeField]
+        private float dashForce = 2f;
+        [SerializeField]
+        private float dashCooldown = 1f;
+        private float lastDashTime = -100f;
+
         private ScoreSystem scoreSystem => ScoreSystem.Instance;
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             Move(moveDir);
+        }
+
+        public void Dash()
+        {
+            if (Time.time < lastDashTime + dashCooldown)
+                return;
+
+            lastDashTime = Time.time;
+
+            Vector2 dir = moveDir.normalized;
+            if (dir == Vector2.zero)
+            {
+                if (Rb2d.linearVelocity.sqrMagnitude > 0.1f)
+                    dir = Rb2d.linearVelocity.normalized;
+                else
+                    dir = transform.right;
+            }
+
+            Rb2d.AddForce(dir * dashForce, ForceMode2D.Impulse);
         }
 
         private void Start()

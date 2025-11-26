@@ -4,8 +4,18 @@ using UnityEngine;
 
 namespace Main.Character.AI
 {
+    public enum Behavior
+    {
+        Passive = 0,
+        Aggressive = 1,
+    }
+
     public class AiFish : Fish
     {
+        [SerializeField]
+        private Behavior behavior = Behavior.Passive;
+        public Behavior Behavior => behavior;
+
         [ReadOnly]
         public State CurrentState;
 
