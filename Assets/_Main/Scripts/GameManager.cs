@@ -1,3 +1,4 @@
+using Main.Character;
 using Main.Character.AI;
 using Main.Menu;
 using Main.Player;
@@ -69,7 +70,7 @@ namespace Main
             Instance = this;
         }
 
-        public void Start()
+        private void Start()
         {
             TimeScaleSystem.PauseTime();
             mainMenuCamera.gameObject.SetActive(true);
@@ -78,6 +79,14 @@ namespace Main
 
             ScoreSystem.Instance.Reset();
             ScoreUI.Instance.gameObject.SetActive(false);
+        }
+
+        private void FixedUpdate()
+        {
+            if (AiFishManager.FishCount <= 150)
+            {
+                SpawnFish(player.Character.GetSize() / 1.25f, 20);
+            }
         }
 
         public void StartGame()
@@ -101,7 +110,9 @@ namespace Main
             {
                 worldStage.Init();
                 var currentStage = worldStage.GetCurrentStage();
-                SpawnFish(currentStage, startSpawnAmount);
+
+                var playerSize = player.Character.GetSize();
+                SpawnFish(currentStage, playerSize / 1.25f, startSpawnAmount);
             }
 
             Debug.Log("[GameManager] Started Game");
@@ -164,7 +175,10 @@ namespace Main
             transition.ChainCallback(() =>
             {
                 var nextWorldStage = worldStage.NextStage();
-                SpawnFish(nextWorldStage, startSpawnAmount);
+
+                var playerSize = player.Character.GetSize();
+                SpawnFish(nextWorldStage, scale: playerSize / 1.25f, startSpawnAmount / 2);
+                SpawnFish(nextWorldStage, scale: playerSize * 1.25f, 5);
                 playerCamera.Lens.OrthographicSize += currentProgress;
             });
             transition.Chain(TransitionManager.Instance.Fade(1, 0));
@@ -184,12 +198,12 @@ namespace Main
             SceneManager.LoadScene(loseSceneName);
         }
 
-        private void SpawnFish(WorldStageData worldStageData, int amount)
+        public void SpawnFish(float scale, int amount) => SpawnFish(worldStage.GetCurrentStage(), scale, amount);
+
+        private void SpawnFish(WorldStageData worldStageData, float scale, int amount)
         {
             var spawningFishes = worldStageData.GetSpawningFishes();
-            var scale = worldStageData.GetRandomSizeRange();
-            spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: amount / 2);
-            spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: amount / 2);
+            spawner.SpawnFish(spawningFishes, scale: scale, amount: amount);
         }
     }
 }

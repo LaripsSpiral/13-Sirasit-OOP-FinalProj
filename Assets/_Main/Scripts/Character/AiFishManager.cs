@@ -17,7 +17,10 @@ namespace Main.Character.AI
         [SerializeField]
         private PlayerCharacter playerCharacter;
 
-        private List<Fish> fishList = new List<Fish>();
+        [SerializeField, ReadOnly]
+        private static List<Fish> fishList = new List<Fish>();
+        public static int FishCount => fishList.Count;
+
         private JobHandle jobHandle;
 
         public const float VISION_RANGE = 5f;

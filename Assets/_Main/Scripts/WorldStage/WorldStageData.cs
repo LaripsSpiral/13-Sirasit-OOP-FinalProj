@@ -7,9 +7,6 @@ namespace Main.WorldStage
     public class WorldStageData : ScriptableObject
     {
         [SerializeField]
-        private Vector2 randomSizeRange;
-
-        [SerializeField]
         private GameObject sky;
 
         [SerializeField]
@@ -18,7 +15,6 @@ namespace Main.WorldStage
         [SerializeField]
         private Fish[] spawningFishes;
 
-        public Vector2 GetRandomSizeRange() => randomSizeRange;
         public GameObject GetSky() => sky;
         public GameObject GetDecoration() => decoration;
         public Fish[] GetSpawningFishes() => spawningFishes;

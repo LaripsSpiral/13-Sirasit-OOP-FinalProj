@@ -51,10 +51,6 @@ namespace Main.Character
 
         public void Dash()
         {
-            if (Time.time < lastDashTime + dashCooldown)
-                return;
-
-            lastDashTime = Time.time;
 
             Vector2 dir = moveDir.normalized;
             if (dir == Vector2.zero)
