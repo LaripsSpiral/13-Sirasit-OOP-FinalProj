@@ -56,6 +56,7 @@ namespace Main.WorldStage
 
             worldStageQueue.Dequeue();
             var nextStage = worldStageQueue.Peek();
+            Debug.Log($"[WorldStageSystem] Updated Stage {nextStage}");
             UpdateWorldScene(nextStage);
             return nextStage;
         }

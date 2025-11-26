@@ -11,6 +11,8 @@ public class TransitionManager : MonoBehaviour
     [SerializeField]
     private float duration = 1f;
 
+    public Sequence CurrentSequence { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -19,6 +21,8 @@ public class TransitionManager : MonoBehaviour
     public Sequence Fade(float start, float end)
     {
         var sequence = Sequence.Create();
+        CurrentSequence = sequence;
+
         sequence.Chain(Tween.Alpha(canvasGroup, start, end, duration));
         return sequence;
     }

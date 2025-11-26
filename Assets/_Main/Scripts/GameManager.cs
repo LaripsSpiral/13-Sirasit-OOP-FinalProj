@@ -5,6 +5,7 @@ using Main.Score;
 using Main.Times;
 using Main.WorldStage;
 using NaughtyAttributes;
+using PrimeTween;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,7 +45,6 @@ namespace Main
         [SerializeField, ReadOnly]
         private float currentProgress = 0;
 
-        [SerializeField]
         private const float MAX_PROGRESS = 0.35f;
 
         [SerializeField]
@@ -154,13 +154,18 @@ namespace Main
             }
         }
 
+        [Button]
         private void NextState()
         {
-            var nextWorldStage = worldStage.NextStage();
+            if (TransitionManager.Instance.CurrentSequence.isAlive)
+                return;
+
             var transition = TransitionManager.Instance.Fade(0, 1);
-            transition.ChainCallback(() => 
+            transition.ChainCallback(() =>
             {
+                var nextWorldStage = worldStage.NextStage();
                 SpawnFish(nextWorldStage, startSpawnAmount);
+                playerCamera.Lens.OrthographicSize += currentProgress;
             });
             transition.Chain(TransitionManager.Instance.Fade(1, 0));
         }

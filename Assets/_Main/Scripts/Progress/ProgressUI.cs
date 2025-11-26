@@ -26,7 +26,7 @@ namespace Main
         {
             var percentageValue = Mathf.Clamp(value, 0, maxValue);
             _ProgSlider.value = percentageValue;
-            _ProgValueTxt.text = percentageValue.ToString();
+            _ProgValueTxt.text = percentageValue.ToString("0.000 m.");
         }
     }
 }

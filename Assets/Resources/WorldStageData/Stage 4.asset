@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae23da058b05734a9551e2be274d406, type: 3}
   m_Name: Stage 4
   m_EditorClassIdentifier: Assembly-CSharp::Main.WorldStage.WorldStageData
-  randomSizeRange: {x: 2.5, y: 3}
+  randomSizeRange: {x: 0.25, y: 0.3}
   sky: {fileID: 2413747048152089624, guid: 65afbf2d51000254cb8e33c02c5caeec, type: 3}
   decoration: {fileID: 4478371408821722441, guid: 6d09d3843b25a3a4d85c49731a574cc7, type: 3}
   spawningFishes:
