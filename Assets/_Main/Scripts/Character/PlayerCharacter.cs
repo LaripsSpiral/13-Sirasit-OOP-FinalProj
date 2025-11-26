@@ -34,6 +34,12 @@ namespace Main.Character
         [SerializeField, Tooltip("Additional buff multiplier per combo count. Final buff = baseBuff * (1 + comboCount * comboBuffMultiplier)")]
         private float comboBuffMultiplier = 0.1f;
 
+        [Header("KnockBack Settings")]
+        [SerializeField]
+        private float knockBackRange = 1.0f;
+        [SerializeField]
+        private float knockBackForce = 1.0f;
+
         [Header("Dash Settings")]
         [SerializeField]
         private float dashForce = 2f;
@@ -92,6 +98,8 @@ namespace Main.Character
             Debug.Log($"[Player Size] update : {GetSize()}");
             OnAte?.Invoke(targetFish.GetSize());
 
+            CreateKnockbackWave(radius: knockBackRange, baseForce: knockBackForce);
+
             comboSystem?.AddCombo();
             scoreSystem?.AddScore(targetFish.GetSize() * 100 + (30 * comboCount));
 
@@ -141,6 +149,50 @@ namespace Main.Character
         {
             gameObject.SetActive(false);
             OnDeath.Invoke();
+        }
+
+        private void CreateKnockbackWave(float radius, float baseForce)
+        {
+            // Collect all colliders in radius
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
+            if (hits == null || hits.Length == 0)
+                return;
+
+            Vector2 center = transform.position;
+            const float epsilon = 0.0001f;
+
+            foreach (var col in hits)
+            {
+                if (col.attachedRigidbody == null)
+                    continue;
+
+                var rb = col.attachedRigidbody;
+
+                // Don't apply to self
+                if (rb.gameObject == gameObject)
+                    continue;
+
+                Vector2 otherPos = rb.position;
+                Vector2 dir = otherPos - center;
+                float dist = dir.magnitude;
+
+                if (dist < epsilon)
+                {
+                    // If overlapping exactly, push in a random direction to avoid NaN
+                    dir = UnityEngine.Random.insideUnitCircle.normalized;
+                    dist = epsilon;
+                }
+
+                // Attenuate force by distance (closer => stronger)
+                float attenuation = Mathf.Clamp01(1f - (dist / radius));
+                float forceMagnitude = baseForce * attenuation;
+
+                Vector2 force = dir.normalized * forceMagnitude;
+
+                // Add a slight upward bias (relative to world up) for visual variety
+                force += Vector2.up * (attenuation * baseForce);
+                rb.AddForce(force, ForceMode2D.Impulse);
+            }
         }
     }
 }
