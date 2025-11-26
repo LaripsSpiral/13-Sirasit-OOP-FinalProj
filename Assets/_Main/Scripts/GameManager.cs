@@ -8,6 +8,7 @@ using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Main
 {
@@ -100,10 +101,7 @@ namespace Main
             {
                 worldStage.Init();
                 var currentStage = worldStage.GetCurrentStage();
-                var spawningFishes = currentStage.GetSpawningFishes();
-                var scale = currentStage.GetRandomSizeRange();
-                spawner.SpawnFishInArea(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: startSpawnAmount / 2);
-                spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: startSpawnAmount/2);
+                SpawnFish(currentStage, startSpawnAmount);
             }
 
             Debug.Log("[GameManager] Started Game");
@@ -125,28 +123,28 @@ namespace Main
                 case < 0.125f:
                     if (worldStage.GetCurrentStage() != worldStage.WorldStageData[0])
                     {
-                        worldStage.NextStage();
+                        NextState();
                     }
                     break;
 
                 case < 0.2f:
                     if (worldStage.GetCurrentStage() != worldStage.WorldStageData[1])
                     {
-                        worldStage.NextStage();
+                        NextState();
                     }
                     break;
 
                 case < 0.25f:
                     if (worldStage.GetCurrentStage() != worldStage.WorldStageData[2])
                     {
-                        worldStage.NextStage();
+                        NextState();
                     }
                     break;
 
                 case < 0.3f:
                     if (worldStage.GetCurrentStage() != worldStage.WorldStageData[3])
                     {
-                        worldStage.NextStage();
+                        NextState();
                     }
                     break;
 
@@ -155,6 +153,18 @@ namespace Main
                     break;
             }
         }
+
+        private void NextState()
+        {
+            var nextWorldStage = worldStage.NextStage();
+            var transition = TransitionManager.Instance.Fade(0, 1);
+            transition.ChainCallback(() => 
+            {
+                SpawnFish(nextWorldStage, startSpawnAmount);
+            });
+            transition.Chain(TransitionManager.Instance.Fade(1, 0));
+        }
+
         private void WinGame()
         {
             Debug.Log("Win");
@@ -167,6 +177,14 @@ namespace Main
             Debug.Log("Lose");
             TimeScaleSystem.Resume();
             SceneManager.LoadScene(loseSceneName);
+        }
+
+        private void SpawnFish(WorldStageData worldStageData, int amount)
+        {
+            var spawningFishes = worldStageData.GetSpawningFishes();
+            var scale = worldStageData.GetRandomSizeRange();
+            spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: amount / 2);
+            spawner.SpawnFish(spawningFishes, scale: Random.Range(scale.x, scale.y), amount: amount / 2);
         }
     }
 }

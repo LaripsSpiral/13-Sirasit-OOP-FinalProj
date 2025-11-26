@@ -66,7 +66,8 @@ namespace Main.Character
             int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
 
             base.Eat(targetFish);
-            transform.localScale += Vector3.one * (targetFish.GetSize() / 30) * (comboCount / 5);
+            transform.localScale += Vector3.one * (targetFish.GetSize() / 30) + (Vector3.one * (comboCount / 5));
+            Debug.Log($"[Player Size] update : {GetSize()}");
             OnAte?.Invoke(targetFish.GetSize());
 
             comboSystem?.AddCombo();
