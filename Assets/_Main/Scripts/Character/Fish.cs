@@ -62,7 +62,9 @@ namespace Main.Character
 
         protected virtual void Eat(Fish targetFish)
         {
-            audioSource.PlayOneShot(eatSound);
+            if (eatSound != null)
+                audioSource.PlayOneShot(eatSound);
+
             targetFish.Eaten();
         }
 

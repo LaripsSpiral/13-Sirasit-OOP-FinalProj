@@ -18,8 +18,8 @@ namespace Main.Character.AI
         private PlayerCharacter playerCharacter;
 
         [SerializeField, ReadOnly]
-        private static List<Fish> fishList = new List<Fish>();
-        public static int FishCount => fishList.Count;
+        private List<Fish> fishList = new List<Fish>();
+        public int FishCount => fishList.Count;
 
         private JobHandle jobHandle;
 

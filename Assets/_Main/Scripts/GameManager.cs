@@ -24,6 +24,8 @@ namespace Main
 
         [SerializeField]
         private CinemachineCamera playerCamera;
+        [SerializeField]
+        private CinemachineConfiner2D playerConfiner2D;
 
         [Header("Ref/MainUI")]
         [SerializeField]
@@ -83,7 +85,7 @@ namespace Main
 
         private void FixedUpdate()
         {
-            if (AiFishManager.FishCount <= 150)
+            if (worldStage.GetCurrentStage() != default && AiFishManager.Instance.FishCount <= 150)
             {
                 SpawnFish(player.Character.GetSize() / 1.25f, 20);
             }
@@ -112,7 +114,8 @@ namespace Main
                 var currentStage = worldStage.GetCurrentStage();
 
                 var playerSize = player.Character.GetSize();
-                SpawnFish(currentStage, playerSize / 1.25f, startSpawnAmount);
+                SpawnFish(currentStage, playerSize / 1.25f, startSpawnAmount/2);
+                spawner.SpawnFishInArea(currentStage.GetSpawningFishes(), playerSize / 1.25f, startSpawnAmount/2);
             }
 
             Debug.Log("[GameManager] Started Game");
@@ -179,7 +182,11 @@ namespace Main
                 var playerSize = player.Character.GetSize();
                 SpawnFish(nextWorldStage, scale: playerSize / 1.25f, startSpawnAmount / 2);
                 SpawnFish(nextWorldStage, scale: playerSize * 1.25f, 5);
-                playerCamera.Lens.OrthographicSize += currentProgress;
+
+                // Update CameraSize
+                playerCamera.Lens.OrthographicSize *= playerSize + 1;
+                playerConfiner2D.BakeBoundingShape(playerCamera, .01f);
+
             });
             transition.Chain(TransitionManager.Instance.Fade(1, 0));
         }

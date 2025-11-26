@@ -247,7 +247,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 3100787393255070815}
   audioSource: {fileID: 4718093457895034554}
-  eatSound: {fileID: 8300000, guid: 7192022bd6ec9384e872deb1dad65165, type: 3}
+  eatSound: {fileID: 0}
   mouthPos: {fileID: 213617298686594503}
   mouthSize: 0.5
   eatingMask:

@@ -94,7 +94,7 @@ namespace Main.Character
             int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
 
             base.Eat(targetFish);
-            transform.localScale += Vector3.one * (targetFish.GetSize() / 125) + (Vector3.one * comboCount/60000);
+            transform.localScale += Vector3.one * (targetFish.GetSize() / 200) + (Vector3.one * comboCount/100000);
             Debug.Log($"[Player Size] update : {GetSize()}");
             OnAte?.Invoke(targetFish.GetSize());
 
@@ -133,6 +133,8 @@ namespace Main.Character
 
             currentHealth -= 1;
             Debug.Log($"{this} Taken Damage, left {currentHealth} Health");
+
+            CreateKnockbackWave(radius: knockBackRange, baseForce: knockBackForce);
 
             audioSource.PlayOneShot(takeDamageSound);
             OnTakeDamage?.Invoke();
