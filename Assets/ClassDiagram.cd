@@ -1,89 +1,221 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Character">
-    <Position X="22.5" Y="2.25" Width="1.5" />
+  <Class Name="Main.Character.AI.AiFish" Collapsed="true">
+    <Position X="10" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQoCABAAAAAAAAAEBAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\_Script\Character\Character.cs</FileName>
+      <HashCode>AAAEAAAAEwIAAAAAAAgAACAEAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFish.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Enemy">
-    <Position X="19.25" Y="6" Width="1.5" />
+  <Class Name="Main.Character.AI.AiFishManager" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\Character\Enemy\Enemy.cs</FileName>
+      <HashCode>AAQEIAAAAACAAAABEEAABAAAAAAAAIAAQBAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFishManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player">
-    <Position X="21.5" Y="6" Width="1.5" />
+  <Class Name="Main.Character.BaseCharacter" Collapsed="true">
+    <Position X="11.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQQAACCCiIAAAAAAAAiAAAARAAAAACkAAAAgAABJGE=</HashCode>
-      <FileName>Assets\_Script\Character\Player\Player.cs</FileName>
+      <HashCode>IAAAAAAAQoAABEAAAIUIABABAAAAgQAlAAAgIAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\BaseCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SmallFish">
-    <Position X="23.75" Y="6" Width="1.5" />
+  <Class Name="Main.Character.Fish" Collapsed="true">
+    <Position X="11.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQEAAAAACAAAAAAAAAAAAAAAAAkAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\Character\SmallFish\SmallFish.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="FishingBait">
-    <Position X="26" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IASEAAAAACAAEAAAAoAAAAAAAAAABABABAAiAAAAAIA=</HashCode>
-      <FileName>Assets\_Script\Character\Enemy\FishingBoat\FishingBait.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="FishingBoat">
-    <Position X="19.25" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAACAAAAAACEAAAABAAAAAAABABAAAAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\Character\Enemy\FishingBoat\FishingBoat.cs</FileName>
+      <HashCode>AAAAAQAAEgcAAAiAAAEAAIEgAAAAEAAAAAAAAAACAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\Fish.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SmalllFishEnvironment">
-    <Position X="16.5" Y="9.5" Width="1.5" />
+  <Class Name="Main.Character.PlayerCharacter" Collapsed="true">
+    <Position X="12.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQCgAAAECIAgAAQAAAgAAAEgCAAEgAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\Environment\SmalllFishEnvironment.cs</FileName>
+      <HashCode>ABABABEAGiADBDAAAASoAIQAABANAAAwAAAAgAgDIAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\PlayerCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="GameManager">
-    <Position X="16.5" Y="4.5" Width="1.5" />
+  <Class Name="ComboSystem" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAgAACAABAABAAAgAAAYAAAAAABACABAAgAAAAA=</HashCode>
-      <FileName>Assets\_Script\System\GameManager.cs</FileName>
+      <HashCode>AAAAAAAAAgAAAAAAAIAAAAAAQAAAAAIAAAACAIAIAAQ=</HashCode>
+      <FileName>Assets\_Main\Scripts\Combo\ComboSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MainMenu">
-    <Position X="14.75" Y="4.5" Width="1.5" />
+  <Class Name="ComboUI" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAEAAEA=</HashCode>
-      <FileName>Assets\_Script\System\MainMenu.cs</FileName>
+      <HashCode>gQAAQCgAAAAAAgRUAAIRIAABCAAAAAAAAAAAKAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Combo\UI\ComboUI.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TimeSystem">
-    <Position X="13" Y="4.5" Width="1.5" />
+  <Class Name="TransitionManager" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
-      <FileName>Assets\_Script\System\TimeSystem.cs</FileName>
+      <HashCode>IAAAAAIAAAAAgAAAAAAABAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\TransitionManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="IEatable">
-    <Position X="10.25" Y="4.5" Width="1.5" />
+  <Class Name="WinLoseUIManager" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\Interfaces\IEatable.cs</FileName>
+      <HashCode>AAABAQAAAAAAAERAAAAAAAAAAAAAAAAAAAAAAAGAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\WinLose\WinLoseUIManager.cs</FileName>
     </TypeIdentifier>
-  </Interface>
-  <Enum Name="GameState">
-    <Position X="8.25" Y="4.5" Width="1.5" />
+  </Class>
+  <Class Name="Main.Effects.EffectBuff" Collapsed="true">
+    <Position X="6.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\_Script\System\GameManager.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAgAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Effects\EffectBuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Effects.SpeedBuffUI" Collapsed="true">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAIAAAAAAAAEAAAAAAAQAAAAAAAAQ=</HashCode>
+      <FileName>Assets\_Main\Scripts\Effects\SpeedBuffUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.GameManager" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADBAIAAqAABAMAABACAAAgICAAAACBQQCAACCQAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.ProgressUI" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACQAAACAAAAAAAAAAAAAAAAAAAAACAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Progress\ProgressUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.SpawnerSystem" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAFEIEAgAQAAAAAAAEgAUABBAAAAgEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Spawners\SpawnerSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Menu.BaseUI" Collapsed="true">
+    <Position X="11.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Menu\BaseUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Menu.MainMenuUI" Collapsed="true">
+    <Position X="10" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACEAAAAAAAAAAAAAAAAgAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Menu\MainMenuUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Menu.PauseUI" Collapsed="true">
+    <Position X="12.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACEAAAAAAAAAAAAAAQAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Menu\PauseUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Player.DashCooldownUI" Collapsed="true">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAIAAAAAAAQEAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Assets\_Main\Scripts\Player\DashCooldownUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Player.PlayerController" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAiAAAAIAAAEAQCAAAAAAEgAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Player\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Player.PlayerHealthUI" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAABAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Player\PlayerHealthUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Score.ScoreSystem" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAEBAAAAAAAAAAAAAAAAAIRQAAAAAAAAGA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Scores\ScoreSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Score.ScoreUI" Collapsed="true">
+    <Position X="14.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAEAAAAAAAAAAAAAAAAAAIAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Scores\UI\ScoreUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Times.CountDownTimer" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAABAAAAAAAAAAAAAAAgQAACAAAAAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Times\CountDownTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Times.CountDownEvent" Collapsed="true">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAIAAACAAABAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Times\CountDownTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.Times.TimeScaleSystem" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAAAAAAEACAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Times\TimeScaleSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.WorldStage.WorldStageData" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAACAAAAAAAAAAACAAAAgAAAIAAAABAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\WorldStage\WorldStageData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Main.WorldStage.WorldStageSystem" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAARAACAAAAAAAAAAIAAAAAAAgAAACAQCACAAIgAEA=</HashCode>
+      <FileName>Assets\_Main\Scripts\WorldStage\WorldStageSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Main.Character.AI.FishJobInput" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAQAAgAAgAAAAAAQAAAAAABAAAAEAAAAAEAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFishManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Main.Character.AI.FishJobOutput" Collapsed="true">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAABAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFishManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Main.Character.AI.FishAIJob" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAQAAQAAAAAEgAAAACAAAAAAABAgCAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFishManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Enum Name="Main.Character.AI.State" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Main\Scripts\Character\AiFishManager.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
