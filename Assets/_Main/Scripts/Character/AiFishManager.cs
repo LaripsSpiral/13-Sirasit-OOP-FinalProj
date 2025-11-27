@@ -120,6 +120,7 @@ namespace Main.Character.AI
             playerCharacter.OnDeath += () => fishList.Remove(playerCharacter);
 
             // Add AI Fishes
+            fishList.Clear();
             var aiFishes = FindObjectsByType<AiFish>(sortMode: FindObjectsSortMode.None);
             foreach (var aiFish in aiFishes)
             {

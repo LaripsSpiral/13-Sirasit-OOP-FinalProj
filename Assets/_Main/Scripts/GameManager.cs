@@ -108,7 +108,9 @@ namespace Main
             player.Character.OnAte += _ => UpdateProgress(player.Character.GetSize());
             player.Character.OnDeath += EndGame;
 
-            if (spawner != default)
+            AiFishManager.Instance.FetchAllFish();
+
+            if (spawner.enabled)
             {
                 worldStage.Init();
                 var currentStage = worldStage.GetCurrentStage();

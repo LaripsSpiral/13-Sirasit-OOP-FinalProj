@@ -18,10 +18,23 @@ namespace Main
 
         [SerializeField] private RectTransform[] _offScreenSpawnArea;
 
+        [Header("Test")]
+        [SerializeField]
+        private Fish[] testFishPrefabs;
+
+        [SerializeField]
+        private float testScale;
+
+        [SerializeField]
+        private int testAmount;
+
         private void Awake()
         {
             Instance = this;
         }
+
+        [Button]
+        private void TestSpawnFish() => SpawnFishInArea(testFishPrefabs, testScale, testAmount);
 
         /// <summary>
         /// Spawn fish in start Area. Should only use at Start
@@ -63,8 +76,6 @@ namespace Main
 
                 CreateFish(fishPrefabs: fish, scale: scale, spawnAreaMin, spawnAreaMax);
             }
-
-            AiFishManager.Instance.FetchAllFish();
         }
 
         /// <summary>
@@ -87,6 +98,8 @@ namespace Main
 
             fish.transform.localScale = Vector3.one * scale;
             fish.SetSpeed(fish.Speed);
+
+            AiFishManager.Instance.FetchAllFish();
         }
     }
 }
