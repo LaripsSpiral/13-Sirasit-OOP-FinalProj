@@ -90,7 +90,7 @@ namespace Main.Character
             // Start cooldown timer with progress updates
             if (CountDownTimer.Instance != null)
             {
-                string id = $"DashCooldown_{GetInstanceID()}";
+                string id = $"DashCooldown";
                 var cdEvent = new CountDownEvent(
                     OnFinished: null,
                     CoolDownTime: dashCooldown

@@ -71,7 +71,7 @@ namespace Main.Character
         protected virtual void Eaten()
         {
             OnDeath?.Invoke();
-            Destroy(gameObject);
+            SpawnerSystem.Instance.ReturnFishToPool(this);
         }
 
         private void OnDrawGizmosSelected()

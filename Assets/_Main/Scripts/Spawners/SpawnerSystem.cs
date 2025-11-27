@@ -1,7 +1,9 @@
 using Main.Character;
 using Main.Character.AI;
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace Main
@@ -10,23 +12,22 @@ namespace Main
     {
         public static SpawnerSystem Instance;
 
-        [SerializeField]
-        private Transform parentGroup;
+        [SerializeField] private Transform parentGroup;
 
         [Header("SpawnAreas")]
         [SerializeField] private RectTransform _startSpawnArea;
-
         [SerializeField] private RectTransform[] _offScreenSpawnArea;
 
         [Header("Test")]
-        [SerializeField]
-        private Fish[] testFishPrefabs;
+        [SerializeField] private Fish[] testFishPrefabs;
+        [SerializeField] private float testScale = 1f;
+        [SerializeField] private int testAmount = 10;
 
-        [SerializeField]
-        private float testScale;
+        // Dictionary to hold a specific pool for each specific Fish Prefab
+        private Dictionary<Fish, ObjectPool<Fish>> _fishPools = new();
 
-        [SerializeField]
-        private int testAmount;
+        // Dictionary to track which prefab a specific active fish instance came from (needed for returning)
+        private Dictionary<Fish, Fish> _activeFishSourceMap = new();
 
         private void Awake()
         {
@@ -37,69 +38,108 @@ namespace Main
         private void TestSpawnFish() => SpawnFishInArea(testFishPrefabs, testScale, testAmount);
 
         /// <summary>
-        /// Spawn fish in start Area. Should only use at Start
+        /// Retrieves the specific pool for a prefab, or creates one if it doesn't exist.
         /// </summary>
-        /// <param name="spawnArea"></param>
+        private ObjectPool<Fish> GetPoolForPrefab(Fish prefab)
+        {
+            if (_fishPools.TryGetValue(prefab, out var pool)) return pool;
+
+            // Create a new pool for this specific prefab type
+            var newPool = new ObjectPool<Fish>(
+                createFunc: () => {
+                    // Instantiate under parentGroup immediately to avoid re-parenting cost later
+                    return Instantiate(prefab, parentGroup);
+                },
+                actionOnGet: (fish) => fish.gameObject.SetActive(true),
+                actionOnRelease: (fish) => fish.gameObject.SetActive(false),
+                actionOnDestroy: (fish) => Destroy(fish.gameObject),
+                defaultCapacity: 10,
+                maxSize: 100
+            );
+
+            _fishPools.Add(prefab, newPool);
+            return newPool;
+        }
+
         public void SpawnFishInArea(Fish[] spawningFish, float scale, int amount)
         {
+            // Pre-calculate world space rect only once if possible, 
+            // but since startArea is one object, we do it here.
             var spawnArea = _startSpawnArea;
-            Vector2 spawnAreaMin = new(spawnArea.rect.min.x + spawnArea.position.x, spawnArea.rect.min.y + spawnArea.position.y);
-            Vector2 spawnAreaMax = new(spawnArea.rect.max.x + spawnArea.position.x, spawnArea.rect.max.y + spawnArea.position.y);
+            Vector2 spawnAreaMin = GetWorldRectMin(spawnArea);
+            Vector2 spawnAreaMax = GetWorldRectMax(spawnArea);
 
             for (int i = 0; i < amount; i++)
             {
-                var fish = spawningFish[UnityEngine.Random.Range(0, spawningFish.Length)];
-                CreateFish(fishPrefabs: fish, scale: scale, spawnAreaMin, spawnAreaMax);
+                var fishPrefab = spawningFish[Random.Range(0, spawningFish.Length)];
+                CreateFish(fishPrefab, scale, spawnAreaMin, spawnAreaMax);
             }
+
+            // OPTIMIZATION: Only fetch AI once after the entire batch is spawned
+            AiFishManager.Instance.FetchAllFish();
         }
 
-        /// <summary>
-        /// Spawn fish in offScreen
-        /// </summary>
-        /// <param name="amount"></param>
         public void SpawnFish(Fish[] spawningFish, float scale, int amount)
         {
             for (int i = 0; i < amount; i++)
             {
-                var fish = spawningFish[UnityEngine.Random.Range(0, spawningFish.Length)];
+                var fishPrefab = spawningFish[Random.Range(0, spawningFish.Length)];
 
-                //Random SpawnArea
+                // Random SpawnArea per fish
                 RectTransform spawnArea = _offScreenSpawnArea[Random.Range(0, _offScreenSpawnArea.Length)];
 
-                Vector2 spawnAreaMin = new(
-                    spawnArea.rect.min.x + spawnArea.position.x,
-                    spawnArea.rect.min.y + spawnArea.position.y);
-
-                Vector2 spawnAreaMax = new(
-                    spawnArea.rect.max.x + spawnArea.position.x,
-                    spawnArea.rect.max.y + spawnArea.position.y);
-
-                CreateFish(fishPrefabs: fish, scale: scale, spawnAreaMin, spawnAreaMax);
+                CreateFish(fishPrefab, scale, GetWorldRectMin(spawnArea), GetWorldRectMax(spawnArea));
             }
+
+            // OPTIMIZATION: Only fetch AI once after the entire batch is spawned
+            AiFishManager.Instance.FetchAllFish();
         }
 
-        /// <summary>
-        /// Create Fish with random Size and Speed by randomScale
-        /// </summary>
-        /// <param name="fishPrefabs"></param>
-        /// <param name="spawnAreaMin"></param>
-        /// <param name="spawnAreaMax"></param>
-        private void CreateFish(Fish fishPrefabs, float scale, Vector2 spawnAreaMin, Vector2 spawnAreaMax)
+        private void CreateFish(Fish fishPrefab, float scale, Vector2 spawnAreaMin, Vector2 spawnAreaMax)
         {
-            Fish fish = Instantiate(fishPrefabs);
-            fish.transform.parent = parentGroup;
+            // Get from the specific pool belonging to this prefab
+            Fish fishInstance = GetPoolForPrefab(fishPrefab).Get();
 
-            //Set SpawnPos
+            // Map the instance to the prefab so we know where to return it later
+            _activeFishSourceMap[fishInstance] = fishPrefab;
+
+            // Set SpawnPos
             Vector2 spawnPos;
             spawnPos.x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
             spawnPos.y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
 
-            fish.transform.position = spawnPos;
+            fishInstance.transform.position = spawnPos;
+            fishInstance.transform.localScale = Vector3.one * scale;
 
-            fish.transform.localScale = Vector3.one * scale;
-            fish.SetSpeed(fish.Speed);
-
-            AiFishManager.Instance.FetchAllFish();
+            // Assuming SetSpeed initializes the fish logic
+            fishInstance.SetSpeed(fishInstance.Speed);
         }
+
+        /// <summary>
+        /// CALL THIS instead of Destroy(fish.gameObject)
+        /// </summary>
+        public void ReturnFishToPool(Fish fishInstance)
+        {
+            if (_activeFishSourceMap.TryGetValue(fishInstance, out Fish sourcePrefab))
+            {
+                // Return to the correct pool
+                if (_fishPools.TryGetValue(sourcePrefab, out var pool))
+                {
+                    pool.Release(fishInstance);
+                    _activeFishSourceMap.Remove(fishInstance);
+                    return;
+                }
+            }
+
+            // Fallback if not found in pool map (e.g. scene objects)
+            Destroy(fishInstance.gameObject);
+        }
+
+        // Helper to keep code clean
+        private Vector2 GetWorldRectMin(RectTransform rt) =>
+            new Vector2(rt.rect.min.x, rt.rect.min.y) + (Vector2)rt.position;
+
+        private Vector2 GetWorldRectMax(RectTransform rt) =>
+            new Vector2(rt.rect.max.x, rt.rect.max.y) + (Vector2)rt.position;
     }
 }
