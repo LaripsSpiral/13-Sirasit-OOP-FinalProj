@@ -18,6 +18,8 @@ namespace Main
     {
         public static GameManager Instance;
 
+        public bool IsGameStarted { get; private set; }
+
         [Header("Ref/Camera")]
         [SerializeField]
         private CinemachineCamera mainMenuCamera;
@@ -74,6 +76,7 @@ namespace Main
 
         private void Start()
         {
+            IsGameStarted = false;
             TimeScaleSystem.PauseTime();
             mainMenuCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
@@ -94,6 +97,7 @@ namespace Main
         public void StartGame()
         {
             Debug.Log("[GameManager] Setup Start");
+            IsGameStarted = true;
             TimeScaleSystem.Resume();
 
             mainMenuCamera.gameObject.SetActive(false);
