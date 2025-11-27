@@ -86,7 +86,7 @@ namespace Main.Character
             if (dir.sqrMagnitude < 0.001f)
                 return;
 
-            float rotAngleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float rotAngleZ = FastAtan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
             float finalRotZ;
             float rotAngleY;
@@ -103,6 +103,26 @@ namespace Main.Character
             }
 
             transform.localEulerAngles = new Vector3(0f, rotAngleY, finalRotZ);
+        }
+
+        private static float FastAtan2(float y, float x)
+        {
+            const float epsilon = 1e-10f;
+            float absY = Mathf.Abs(y) + epsilon;
+
+            float angle;
+            if (x >= 0f)
+            {
+                float r = (x - absY) / (x + absY);
+                angle = Mathf.PI * 0.25f - Mathf.PI * 0.25f * r;
+            }
+            else
+            {
+                float r = (x + absY) / (absY - x);
+                angle = Mathf.PI * 0.75f - Mathf.PI * 0.25f * r;
+            }
+
+            return y < 0f ? -angle : angle;
         }
         public float SetSpeed(float value)
         {
