@@ -2,6 +2,7 @@ using Main.Score;
 using Main.Times;
 using NaughtyAttributes;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Main.Character
@@ -121,12 +122,42 @@ namespace Main.Character
             moveDir = moveInput;
         }
 
+        protected override void RotateAlongVelocity()
+        {
+            Vector2 dir = moveDir;
+
+            if (dir.sqrMagnitude < 0.001f)
+                return;
+
+            float rotAngleZ = FastAtan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            float finalRotZ;
+            float rotAngleY;
+
+            if (dir.x < 0)
+            {
+                rotAngleY = 180f;
+                finalRotZ = 180f - rotAngleZ;
+            }
+            else
+            {
+                rotAngleY = 0f;
+                finalRotZ = rotAngleZ;
+            }
+
+            var rotZ = Mathf.LerpAngle(transform.localEulerAngles.z, finalRotZ, 0.2f);
+
+            var newRot = new Vector3(0f, rotAngleY, rotZ);
+
+            transform.localEulerAngles = newRot;
+        }
+
         protected override void Eat(Fish targetFish)
         {
             int comboCount = comboSystem != null ? comboSystem.ComboCount : 0;
 
             base.Eat(targetFish);
-            transform.localScale += Vector3.one * (targetFish.GetSize() / 200) + (Vector3.one * comboCount/100000);
+            transform.localScale += Vector3.one * (targetFish.GetSize() / 200) + (Vector3.one * comboCount / 100000);
             Debug.Log($"[Player Size] update : {GetSize()}");
             OnAte?.Invoke(targetFish.GetSize());
 

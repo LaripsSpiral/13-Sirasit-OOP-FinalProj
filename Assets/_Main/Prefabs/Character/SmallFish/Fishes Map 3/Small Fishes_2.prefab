@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648bed059ef28bd4494c34b360b618d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main.Character.AI.AiFish
-  speed: 40
+  speed: 30
   moveDir: {x: 0, y: 0}
   rb2d: {fileID: 8252431886385233934}
   audioSource: {fileID: 6781573717096089480}

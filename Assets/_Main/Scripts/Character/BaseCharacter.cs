@@ -79,7 +79,7 @@ namespace Main.Character
             Rb2d.AddForce(effectiveSpeed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
         }
 
-        private void RotateAlongVelocity()
+        protected virtual void RotateAlongVelocity()
         {
             Vector2 dir = Rb2d.linearVelocity;
 
@@ -105,7 +105,7 @@ namespace Main.Character
             transform.localEulerAngles = new Vector3(0f, rotAngleY, finalRotZ);
         }
 
-        private static float FastAtan2(float y, float x)
+        protected static float FastAtan2(float y, float x)
         {
             const float epsilon = 1e-10f;
             float absY = Mathf.Abs(y) + epsilon;

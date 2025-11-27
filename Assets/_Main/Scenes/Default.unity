@@ -1392,7 +1392,7 @@ MonoBehaviour:
   comboBuffMultiplier: 0.1
   knockBackRange: 1
   knockBackForce: 2.5
-  dashForce: 2
+  dashForce: 1
   dashCooldown: 1
 --- !u!114 &414518171
 MonoBehaviour:
@@ -2133,6 +2133,9 @@ MonoBehaviour:
   _offScreenSpawnArea:
   - {fileID: 1854080723}
   - {fileID: 1644991484}
+  testFishPrefabs: []
+  testScale: 0
+  testAmount: 0
 --- !u!1001 &719514639
 PrefabInstance:
   m_ObjectHideFlags: 0
