@@ -16,6 +16,7 @@ namespace Main.Character
         // Update UI
         public event Action OnTakeDamage;
         public event Action<float> OnAte;
+        public event Action<float> OnDashCooldownProgress;
 
         [SerializeField]
         private Collider2D collider2D;
@@ -47,6 +48,18 @@ namespace Main.Character
         private float dashCooldown = 1f;
         private float lastDashTime = -100f;
 
+        public float DashCooldown => dashCooldown;
+        public bool CanDash => Time.time >= lastDashTime + dashCooldown;
+        public float DashCooldownProgress
+        {
+            get
+            {
+                if (CanDash) return 0f;
+                float elapsed = Time.time - lastDashTime;
+                return Mathf.Clamp01(1f - (elapsed / dashCooldown));
+            }
+        }
+
         private ScoreSystem scoreSystem => ScoreSystem.Instance;
 
         protected override void FixedUpdate()
@@ -55,8 +68,11 @@ namespace Main.Character
             Move(moveDir);
         }
 
-        public void Dash()
+        public bool Dash()
         {
+            // Check cooldown
+            if (!CanDash)
+                return false;
 
             Vector2 dir = moveDir.normalized;
             if (dir == Vector2.zero)
@@ -68,6 +84,22 @@ namespace Main.Character
             }
 
             Rb2d.AddForce(dir * dashForce, ForceMode2D.Impulse);
+            lastDashTime = Time.time;
+
+            // Start cooldown timer with progress updates
+            if (CountDownTimer.Instance != null)
+            {
+                string id = $"DashCooldown_{GetInstanceID()}";
+                var cdEvent = new CountDownEvent(
+                    OnFinished: null,
+                    CoolDownTime: dashCooldown
+                );
+                // Forward per-frame progress to listeners (remaining ratio goes 1 -> 0)
+                cdEvent.OnTick = (ratio) => OnDashCooldownProgress?.Invoke(ratio);
+                CountDownTimer.Instance.AddCountDownEvent(id, cdEvent);
+            }
+
+            return true;
         }
 
         private void Start()
