@@ -15,14 +15,18 @@ namespace Main.Character.AI
         [ReadOnly]
         public float FocusingTime;
 
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            Move(moveDir, ForceMode2D.Force, multiplier: 0.25f);
+        }
+
         // Movement is handled on the main thread, consuming the Job's calculated target
         public void UpdateMovement()
         {
             float2 currentPos = new float2(transform.position.x, transform.position.y);
             float2 direction = TargetPosition - currentPos;
-            direction = math.normalizesafe(direction);
-
-            Move(direction, ForceMode2D.Force, multiplier: 0.25f);
+            moveDir = math.normalizesafe(direction);
         }
 
         protected override void Eat(Fish targetFish)

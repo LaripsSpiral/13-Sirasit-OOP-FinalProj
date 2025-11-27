@@ -42,9 +42,7 @@ namespace Main.Character
                 return result;
             }
 
-            // Why id ? 
-            // To ensure each timed buff is uniquely identified, preventing conflicts or overwrites (six - seven)
-            string id = $"SpeedBuff_{GetInstanceID()}_{Time.time}";
+            string id = $"SpeedBuff";
             var cdEvent = new CountDownEvent(
                 OnFinished: () => RemoveSpeedBuff(value),
                 CoolDownTime: duration
@@ -75,6 +73,9 @@ namespace Main.Character
 
         protected void Move(Vector2 moveDir, ForceMode2D forceMode2D = ForceMode2D.Force, float multiplier = 1)
         {
+            if (moveDir == Vector2.zero)
+                return;
+
             float effectiveSpeed = speed + effectBuff.SpeedBuff;
             Rb2d.AddForce(effectiveSpeed * multiplier * Time.fixedDeltaTime * moveDir, forceMode2D);
         }

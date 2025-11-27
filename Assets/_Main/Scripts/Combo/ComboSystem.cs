@@ -18,7 +18,7 @@ public class ComboSystem : MonoBehaviour
     [SerializeField, ReadOnly]
     private float comboTimer = 0f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (comboCount > 0)
         {

@@ -34,7 +34,7 @@ namespace Main.Player
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             bool isGameStarted = IsGameStarted();
             
