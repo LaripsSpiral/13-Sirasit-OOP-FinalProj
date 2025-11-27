@@ -34,16 +34,6 @@ namespace Main.Player
             }
         }
 
-        private void OnEnable()
-        {
-            playerInput.actions.FindAction("Dash").performed += _ => character.Dash();
-        }
-
-        private void OnDisable()
-        {
-            playerInput.actions.FindAction("Dash").performed -= _ => character.Dash();
-        }
-
         private void Update()
         {
             bool isGameStarted = IsGameStarted();
@@ -57,6 +47,12 @@ namespace Main.Player
                     character.Rb2d.linearVelocity = Vector2.zero;
                 }
                 return;
+            }
+
+            // Check for left mouse click to dash
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                character?.Dash();
             }
 
             MoveToMouse();
