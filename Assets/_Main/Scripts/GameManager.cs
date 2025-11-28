@@ -191,8 +191,7 @@ namespace Main
 
                 // Update CameraSize
                 playerCamera.Lens.OrthographicSize *= playerSize + 1;
-                playerConfiner2D.BakeBoundingShape(playerCamera, .01f);
-
+                playerConfiner2D.InvalidateBoundingShapeCache();
             });
             transition.Chain(TransitionManager.Instance.Fade(1, 0));
         }
