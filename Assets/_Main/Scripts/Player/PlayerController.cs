@@ -34,10 +34,10 @@ namespace Main.Player
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             bool isGameStarted = IsGameStarted();
-            
+
             if (!isGameStarted)
             {
                 // Clear movement input when paused or game not started
@@ -54,6 +54,12 @@ namespace Main.Player
             {
                 character?.Dash();
             }
+        }
+
+        private void FixedUpdate()
+        {
+            if (!IsGameStarted())
+                return;
 
             MoveToMouse();
         }

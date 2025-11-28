@@ -237,6 +237,12 @@ namespace Main.Character
                 if (rb.gameObject == gameObject)
                     continue;
 
+                if (rb.TryGetComponent(out Fish otherFish))
+                {
+                    if (otherFish.GetSize() > GetSize())
+                        return;
+                }
+
                 Vector2 otherPos = rb.position;
                 Vector2 dir = otherPos - center;
                 float dist = dir.magnitude;
