@@ -114,13 +114,14 @@ namespace Main.Character.AI
 
         public void FetchAllFish()
         {
+            fishList.Clear();
+
             // Add Player
             var playerCharacter = FindAnyObjectByType<PlayerCharacter>();
             fishList.Add(playerCharacter);
             playerCharacter.OnDeath += () => fishList.Remove(playerCharacter);
 
             // Add AI Fishes
-            fishList.Clear();
             var aiFishes = FindObjectsByType<AiFish>(sortMode: FindObjectsSortMode.None);
             foreach (var aiFish in aiFishes)
             {
